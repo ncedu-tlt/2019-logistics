@@ -1,4 +1,4 @@
-package ru.ncedu.logistics.Main;
+package ru.ncedu.logistics;
 
 import ru.ncedu.logistics.model.*;
 import ru.ncedu.logistics.service.DataStorage;
@@ -34,7 +34,7 @@ public class Main {
         System.out.println("\nList of offices: ");
         int numberOffice = 0;
         for(Office element: STORAGE.getAllTowns().get(selectedTown-1).getOffices()){
-            System.out.println("\nOffice №"+ ++numberOffice);
+            System.out.println("\nOffice #"+ ++numberOffice);
             element.showOfficeInfo();
         }
     }

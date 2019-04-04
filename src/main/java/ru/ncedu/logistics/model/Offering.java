@@ -1,7 +1,5 @@
 package ru.ncedu.logistics.model;
 
-import ru.ncedu.logistics.Main.Main;
-
 import java.util.Scanner;
 
 public class Offering {

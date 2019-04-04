@@ -1,4 +1,8 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.service;
+
+import ru.ncedu.logistics.model.*;
+import ru.ncedu.logistics.service.import_export.StringBasedImporter;
+import ru.ncedu.logistics.service.factory.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -16,11 +20,11 @@ public class TestDataInitializer {
 
     public TestDataInitializer(DataStorage storage){
         this.storage = storage;
-        importers.put("Products:", new ProductFactory(storage));
-        importers.put("Towns:", new TownFactory(storage));
-        importers.put("Office:", new OfficeFactory(storage));
-        importers.put("Offering:", new OfferingFactory(storage));
-        importers.put("Roads:", new RoadFactory(storage));
+        importers.put("Products", new ProductFactory(storage));
+        importers.put("Towns", new TownFactory(storage));
+        importers.put("Office", new OfficeFactory(storage));
+        importers.put("Offering", new OfferingFactory(storage));
+        importers.put("Road", new RoadFactory(storage));
     }
 
     public void importData(String fileName){
@@ -32,7 +36,6 @@ public class TestDataInitializer {
 
                 String[] divided = {line.substring(0,line.indexOf(':')),
                                     line.substring(line.indexOf(':')+2)};
-
                 importers.get(divided[0]).importFromString(divided[1]);
 
             }

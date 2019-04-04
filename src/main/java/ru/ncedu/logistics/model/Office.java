@@ -1,4 +1,4 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,6 @@ public class Office {
     public Office(Town t, String phone) {
         this.town = t;
         this.phone = phone;
-        setOfferings();
     }
 
     public Office(Town t, String phone, List<Offering> offerings){
@@ -69,7 +68,7 @@ public class Office {
 
         int numberOffering = 0;
         for(Offering element: getOfferings()){
-            System.out.println("Offering №" + ++numberOffering);
+            System.out.println("Offering #" + ++numberOffering);
             System.out.println("Product: " + element.getProduct().getName());
             System.out.println("Price: " + element.getPrice());
         }
