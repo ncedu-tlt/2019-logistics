@@ -1,0 +1,20 @@
+Products: Cheese Milk Feijoa
+Towns: Togliatti Samara Saratov
+Office: Togliatti 204729
+Office: Togliatti 927402
+Office: Samara 880055
+Office: Samara 353517
+Office: Saratov 167945
+Offering: Togliatti 204729 Cheese 120
+Offering: Togliatti 204729 Milk 100
+Offering: Togliatti 927402 Cheese 130
+Offering: Togliatti 927402 Milk 90
+Offering: Samara 880055 Cheese 140
+Offering: Samara 880055 Milk 120
+Offering: Samara 880055 Feijoa 75
+Offering: Samara 353517 Cheese 130
+Offering: Samara 353517 Milk 90
+Offering: Saratov 167945 Cheese 70
+Offering: Saratov 167945 Milk 60
+Road: Togliatti Samara 90
+Road: Samara Saratov 485
