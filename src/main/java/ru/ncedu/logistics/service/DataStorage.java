@@ -1,4 +1,9 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.service;
+
+import ru.ncedu.logistics.model.Office;
+import ru.ncedu.logistics.model.Product;
+import ru.ncedu.logistics.model.Road;
+import ru.ncedu.logistics.model.Town;
 
 import java.util.LinkedList;
 import java.util.List;

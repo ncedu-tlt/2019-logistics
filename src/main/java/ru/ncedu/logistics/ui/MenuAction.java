@@ -1,6 +1,6 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.ui;
 
-enum MenuAction {
+public enum MenuAction {
     ADD_TOWN("Add town"),
     ADD_OFFICE("Add office"),
     ADD_OFFERING("Add offering"),

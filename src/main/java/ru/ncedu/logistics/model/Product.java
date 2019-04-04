@@ -1,4 +1,4 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.model;
 
 import java.util.Scanner;
 

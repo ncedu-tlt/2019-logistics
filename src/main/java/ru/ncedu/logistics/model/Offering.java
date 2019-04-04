@@ -1,4 +1,6 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.model;
+
+import ru.ncedu.logistics.Main.Main;
 
 import java.util.Scanner;
 
@@ -7,7 +9,7 @@ public class Offering {
     private double price;
 
     public Offering() {
-        this.product = Main.addProduct();
+        this.product = new Product();
         System.out.print("Enter product's price: ");
         Scanner sc = new Scanner(System.in);
         this.price = sc.nextDouble();

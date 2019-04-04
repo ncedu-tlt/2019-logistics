@@ -1,4 +1,8 @@
-package ru.ncedu.logistics;
+package ru.ncedu.logistics.service.factory;
+
+import ru.ncedu.logistics.service.import_export.StringBasedImporter;
+import ru.ncedu.logistics.service.DataStorage;
+import ru.ncedu.logistics.model.Town;
 
 public class TownFactory implements StringBasedImporter {
 
@@ -14,5 +18,10 @@ public class TownFactory implements StringBasedImporter {
         for(String el: newTowns){
             storage.addTown(new Town(el));
         }
+    }
+
+    public void addTownByUser(){
+        System.out.println("\nMethod: addTown");
+        storage.addTown(new Town());
     }
 }
