@@ -1,10 +1,11 @@
 package ru.ncedu.logistics.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Office {
+public class Office implements Serializable {
     private Town town;
     private String phone;
     private List<Offering> offerings = new LinkedList<>();
