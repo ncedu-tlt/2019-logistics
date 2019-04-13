@@ -20,7 +20,10 @@ public class OfferingFactory implements StringBasedImporter {
     public void importFromString(String string){
         String data[] = string.split(" ");
         Product product = storage.getProductByName(data[2]);
-        storage.getOfficeByTownAndPhone(data[0],data[1]).addOffering(new Offering(product, Double.valueOf(data[3])));
+        Office office = storage.getOfficeByTownAndPhone(data[0],data[1]);
+        Offering offering = new Offering(office, product, Double.valueOf(data[3]));
+        storage.addOffering(offering);
+        storage.getOfficeByTownAndPhone(data[0],data[1]).addOffering(offering);
     }
 
     public void addOfferingByUser(){
@@ -59,8 +62,9 @@ public class OfferingFactory implements StringBasedImporter {
         storage.addProduct(product);
         System.out.print("Enter price of product: ");
         double price = sc.nextDouble();
-
-        storage.getAllTowns().get(selectedTown-1).getOffices().get(selectedOffice-1).addOffering(new Offering(product,price));
+        Offering offering = new Offering(storage.getAllTowns().get(selectedTown-1).getOffices().get(selectedOffice-1), product, price);
+        storage.addOffering(offering);
+        storage.getAllTowns().get(selectedTown-1).getOffices().get(selectedOffice-1).addOffering(offering);
     }
 }
 

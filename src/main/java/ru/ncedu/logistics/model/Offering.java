@@ -1,8 +1,10 @@
 package ru.ncedu.logistics.model;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Offering {
+public class Offering implements Serializable {
+    private Office office;
     private Product product;
     private double price;
 
@@ -13,9 +15,18 @@ public class Offering {
         this.price = sc.nextDouble();
     }
 
-    public Offering(Product product, double price) {
+    public Offering(Office office, Product product, double price) {
+        this.office = office;
         this.product = product;
         this.price = price;
+    }
+
+    public void setOffice(Office office){
+        this.office = office;
+    }
+
+    public Office getOffice(){
+        return office;
     }
 
     public double getPrice() {
