@@ -1,35 +1,20 @@
 package ru.ncedu.logistics.service;
 
-import ru.ncedu.logistics.model.*;
+import ru.ncedu.logistics.model.Office;
+import ru.ncedu.logistics.model.Product;
+import ru.ncedu.logistics.model.Road;
+import ru.ncedu.logistics.model.Town;
 
-import java.io.Serializable;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
-public class DataStorage implements Serializable{
+public class DataStorage {
 
     private List<Town> towns = new LinkedList<>();
     private List<Product> products = new LinkedList<>();
     private List<Road> roads = new LinkedList<>();
-    private List<Offering> offerings = new LinkedList<>();
 
     public DataStorage(){}
-
-    public void clear(){
-        towns.clear();
-        products.clear();
-        roads.clear();
-        offerings.clear();
-    }
-
-    public void restore(DataStorage dump){
-        this.towns = dump.getAllTowns();
-        this.products = dump.getAllProducts();
-        this.roads = dump.getAllRoads();
-        this.offerings = dump.getAllOfferings();
-    }
 
     public List<Town> getAllTowns() {
         return towns;
@@ -46,12 +31,13 @@ public class DataStorage implements Serializable{
     }
 
     public Product getProductByName(String name){
+        Product temp = new Product("");
         for(Product el: products){
             if(el.getName().equals(name)){
-                return el;
+                temp = el;
             }
         }
-        return null;
+        return temp;
     }
 
     public Office getOfficeByTownAndPhone(String townName, String phone){
@@ -76,10 +62,6 @@ public class DataStorage implements Serializable{
         return products;
     }
 
-    public List<Offering> getAllOfferings(){
-        return offerings;
-    }
-
     public void addTown(Town obj){
         towns.add(obj);
     }
@@ -90,68 +72,5 @@ public class DataStorage implements Serializable{
 
     public void addProduct(Product obj){
         products.add(obj);
-    }
-
-    public void addOffering(Offering obj){
-        offerings.add(obj);
-    }
-
-    public void showOfficeInfo(){
-        System.out.println("\nMethod: showOfficeInfo");
-        System.out.println("List of towns:");
-        int number = 0;
-        for(Town element: getAllTowns()){
-            System.out.println(++number + ") " + element.getName());
-        }
-
-        //Selecting town
-        System.out.print("Select town: ");
-        Scanner sc = new Scanner(System.in);
-
-        int selectedTown = sc.nextInt();
-        while (selectedTown < 1 || selectedTown > getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
-            selectedTown = sc.nextInt();
-        }
-
-
-        System.out.println("\nList of offices: ");
-        int numberOffice = 0;
-        for(Office element: getAllTowns().get(selectedTown-1).getOffices()){
-            System.out.println("\nOffice #"+ ++numberOffice);
-            element.showOfficeInfo();
-        }
-    }
-
-    public void findProduct(){
-        System.out.println("\nSearching product by name.");
-        System.out.print("Enter product's name: ");
-        Scanner sc = new Scanner(System.in);
-        Product selectedProduct = getProductByName(sc.nextLine());
-
-        if(selectedProduct != null){
-            List<Offering> findedOfferings = new LinkedList<>();
-
-            for(Offering el: getAllOfferings()){
-                if(el.getProduct().equals(selectedProduct)){
-                    findedOfferings.add(el);
-                }
-            }
-
-            Collections.sort(findedOfferings, new SortByPrice());
-
-            System.out.println("Found offerings:");
-            for (Offering el: findedOfferings){
-                System.out.println("Town: " + el.getOffice().getTown().getName());
-                System.out.println("Phone: " + el.getOffice().getPhone());
-                System.out.println("Price: " + el.getPrice() + "\n");
-            }
-
-        } else {
-            System.out.println("Product doesn't exists!");
-            return;
-        }
-
-
     }
 }

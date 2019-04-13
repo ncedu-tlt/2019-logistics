@@ -1,8 +1,9 @@
 package ru.ncedu.logistics.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Road {
+public class Road implements Serializable {
     private Town first;
     private Town second;
     private double distance; //Kilometres

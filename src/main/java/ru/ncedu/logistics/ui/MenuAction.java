@@ -7,6 +7,9 @@ public enum MenuAction {
     ADD_PRODUCT("Add product"),
     ADD_ROAD("Add road between towns"),
     SHOW_INFO("Show info about office"),
+    FIND_PRODUCT("Show offerings with product"),
+    EXPORT("Export current data"),
+    IMPORT("Import data from last session"),
     EXIT("Exit from programm");
 
     private String description;
