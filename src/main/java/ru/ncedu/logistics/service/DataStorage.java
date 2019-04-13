@@ -138,7 +138,7 @@ public class DataStorage implements Serializable{
                 }
             }
 
-            Collections.sort(findedOfferings, new SortByPrice());
+            Collections.sort(findedOfferings, new SortByPriceAsc());
 
             System.out.println("Found offerings:");
             for (Offering el: findedOfferings){

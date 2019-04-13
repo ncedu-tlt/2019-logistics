@@ -70,8 +70,8 @@ public class Main {
                 case IMPORT:
                     SerializationService.deserializeDataStorageFromFile(STORAGE); break;
                 }
-            } while (action != MenuAction.EXIT);
-            System.out.println("Program is halt...");return;
+        } while (action != MenuAction.EXIT);
+        System.out.println("Program is halt...");
     }
 
 }
