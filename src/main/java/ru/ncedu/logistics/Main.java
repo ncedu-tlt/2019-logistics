@@ -29,9 +29,11 @@ public class Main {
             testDataInitializer.createTestData();
         }
 
-        while(true){
+        MenuAction[] actions = MenuAction.values();
+        MenuAction action;
+
+        do{
             //Menu
-            MenuAction[] actions = MenuAction.values();
             System.out.println();
             for(int i = 0; i < actions.length; ++i) {
                 System.out.println(i+1 + ") " + actions[i].getDescription());
@@ -44,7 +46,7 @@ public class Main {
                 act = sc.nextInt();
             }
 
-            MenuAction action = actions[act-1];
+            action = actions[act-1];
             switch (action){
                 case ADD_TOWN:
                     TownFactory townFactory = new TownFactory(STORAGE);
@@ -67,11 +69,9 @@ public class Main {
                     SerializationService.serializeDataStorageToFile(new ExportedContent(STORAGE)); break;
                 case IMPORT:
                     SerializationService.deserializeDataStorageFromFile(STORAGE); break;
-                case EXIT:
-                    System.out.println("Programm is halt...");return;
-            }
-        }
-
+                }
+            } while (action != MenuAction.EXIT);
+            System.out.println("Program is halt...");return;
     }
 
 }
