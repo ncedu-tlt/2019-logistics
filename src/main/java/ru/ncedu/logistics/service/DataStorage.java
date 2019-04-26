@@ -36,13 +36,12 @@ public class DataStorage implements Serializable{
     }
 
     public Town getTownByName(String name){
-        Town temp = new Town("");
         for(Town el: towns){
             if(el.getName().equals(name)){
-                temp = el;
+                return el;
             }
         }
-        return temp;
+        return null;
     }
 
     public Product getProductByName(String name){
@@ -55,17 +54,16 @@ public class DataStorage implements Serializable{
     }
 
     public Office getOfficeByTownAndPhone(String townName, String phone){
-        Office temp = new Office();
         for(Town selectedTown: towns){
             if(selectedTown.getName().equals(townName)){
                 for(Office selectedOffice: selectedTown.getOffices()){
                     if(selectedOffice.getPhone().equals(phone)){
-                        temp = selectedOffice; break;
+                        return selectedOffice;
                     }
                 }
             }
         }
-        return temp;
+        return null;
     }
 
     public List<Road> getAllRoads() {
@@ -110,7 +108,7 @@ public class DataStorage implements Serializable{
 
         int selectedTown = sc.nextInt();
         while (selectedTown < 1 || selectedTown > getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
+            System.out.print("Invalid choice! Make a valid choice: ");
             selectedTown = sc.nextInt();
         }
 
@@ -149,7 +147,6 @@ public class DataStorage implements Serializable{
 
         } else {
             System.out.println("Product doesn't exists!");
-            return;
         }
 
 
