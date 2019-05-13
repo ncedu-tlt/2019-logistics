@@ -1,45 +1,83 @@
 package ru.ncedu.logistics.service.factory;
 
-import ru.ncedu.logistics.model.Town;
+import ru.ncedu.logistics.model.entity.OfficeEntity;
+import ru.ncedu.logistics.model.entity.TownEntity;
+import ru.ncedu.logistics.repository.OfficeRepository;
+import ru.ncedu.logistics.repository.TownRepository;
+import ru.ncedu.logistics.service.DatabaseConnection;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
-import ru.ncedu.logistics.service.DataStorage;
-import ru.ncedu.logistics.model.Office;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class OfficeFactory implements StringBasedImporter {
 
-    private DataStorage storage;
-
-    public OfficeFactory(DataStorage storage){
-        this.storage = storage;
-    }
 
     public void importFromString(String string) {
         String[] data = string.split(" ");
-        storage.getTownByName(data[0]).addOffice(new Office(storage.getTownByName(data[0]), data[1]));
+
+        OfficeEntity office = new OfficeEntity();
+
+        TownRepository townRepository = new TownRepository();
+        TownEntity town = townRepository.findByName(data[0]);
+
+        office.setTownId(town.getId());
+        office.setPhone(Integer.valueOf(data[1]));
+
+        OfficeRepository officeRepository = new OfficeRepository();
+        officeRepository.create(office);
+
     }
 
-    public void addOfficeByUser(){
-        System.out.println("\nMethod: addOffice");
-        System.out.println("List of towns:");
-        int number = 0;
-        for(Town element: storage.getAllTowns()){
-            System.out.println(++number + ") " + element.getName());
-        }
-
-        //Selecting town
-        System.out.print("Select town in which add office: ");
+    public void createOffice(){
+        System.out.println("\nMethod: createOffice");
+        OfficeEntity office = new OfficeEntity();
+        TownRepository townRepository = new TownRepository();
         Scanner sc = new Scanner(System.in);
-        int selectedTown = sc.nextInt();
-        while (selectedTown < 1 || selectedTown > storage.getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
-            selectedTown = sc.nextInt();
-        }
 
-        //Adding office and initializing offerings of new office
+        System.out.print("Enter town's name where office located: ");
+        TownEntity town = townRepository.findByName(sc.nextLine());
+        office.setTownId(town.getId());
+
         System.out.print("Enter office's phone number: ");
-        sc.nextLine(); //skip '\n' after int
-        storage.getAllTowns().get(selectedTown-1).addOffice(new Office(storage.getAllTowns().get(selectedTown-1), sc.nextLine())); //sc.nextLine - String Office::phone
+        office.setPhone(sc.nextInt());
+
+        OfficeRepository officeRepository = new OfficeRepository();
+        officeRepository.create(office);
+    }
+
+    public void showOfficeInfo(){
+        System.out.println("\nMethod: showOfficeInfo");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter town's name: ");
+        String townName = sc.nextLine();
+
+        TownRepository townRepository = new TownRepository();
+        TownEntity town = townRepository.findByName(townName);
+
+        if(town.getId() != null){
+            try {
+                DatabaseConnection dbc = new DatabaseConnection();
+                Connection connection = dbc.getConnection();
+                PreparedStatement stm = connection.prepareStatement("SELECT * FROM offices WHERE town_id = ?");
+                stm.setInt(1, town.getId());
+                ResultSet resultSet = stm.executeQuery();
+                int count = 0;
+                while(resultSet.next()){
+                    System.out.println("Office #"+ ++count);
+                    System.out.println("ID: " + resultSet.getInt("id"));
+                    System.out.println("Phone: " + resultSet.getInt("phone") + '\n');
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error! This town doesn't exist.");
+            return;
+        }
     }
 }

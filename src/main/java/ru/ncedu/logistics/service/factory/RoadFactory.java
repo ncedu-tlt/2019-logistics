@@ -1,81 +1,70 @@
 package ru.ncedu.logistics.service.factory;
 
+import ru.ncedu.logistics.model.entity.RoadEntity;
+import ru.ncedu.logistics.model.entity.RoadId;
+import ru.ncedu.logistics.repository.RoadRepository;
+import ru.ncedu.logistics.repository.TownRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
-import ru.ncedu.logistics.service.DataStorage;
-import ru.ncedu.logistics.model.Road;
-import ru.ncedu.logistics.model.Town;
 
 import java.util.Scanner;
 
 public class RoadFactory implements StringBasedImporter {
 
-    private DataStorage storage;
-
-    public RoadFactory(DataStorage storage){
-        this.storage = storage;
-    }
-
     public void importFromString(String string){
-        Town first = new Town("");
-        Town second = new Town("");
+        //data[0] - left town
+        //data[1] - right town
+        //data[2] - distance
         String[] data = string.split(" ");
-        for(Town el: storage.getAllTowns()){
-            if(data[0].equals(el.getName())){
-                first = el;
-            }
+        TownRepository townRepository = new TownRepository();
 
-            if(data[1].equals(el.getName())){
-                second = el;
-            }
+        RoadId roadId = new RoadId();
+        roadId.setLeftId(townRepository.findByName(data[0]).getId());
+        roadId.setRightId(townRepository.findByName(data[1]).getId());
+
+        RoadEntity obj = new RoadEntity();
+        obj.setId(roadId);
+
+        if(Double.valueOf(data[2])>1){
+            obj.setDistance(Double.valueOf(data[2]));
+            RoadRepository roadRepository = new RoadRepository();
+            roadRepository.create(obj);
         }
-        storage.addRoad(Road.fromKilometers(first, second, Double.valueOf(data[2])));
+
     }
 
-    public void addRoadByUser(){
-        System.out.println("\nMethod: addRoad");
-        System.out.println("List of towns:");
-        int number = 0;
-        for(Town element: storage.getAllTowns()){
-            System.out.println(++number + ") " + element.getName());
-        }
-
+    public void createRoad(){
+        System.out.println("\nMethod: createRoad");
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Select first town: ");
-        int first = sc.nextInt();
-        while (first < 1 || first > storage.getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
-            first = sc.nextInt();
+        System.out.print("Enter left town's name: ");
+        String leftTown = sc.nextLine();
+
+        System.out.print("Enter right town's name: ");
+        String rightTown = sc.nextLine();
+        while(leftTown.equals(rightTown)){
+            System.out.print("Can't create road from town to same town. Enter another town: ");
+            rightTown = sc.nextLine();
         }
 
-        System.out.print("Select second town: ");
-        int second = sc.nextInt();
-        while (second < 1 || second > storage.getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
-            second = sc.nextInt();
-        }
 
-        System.out.print("Enter distance in kilometres: ");
+        System.out.print("Enter distance(km) between towns: ");
         double distance = sc.nextDouble();
-        while(distance < 1){
-            System.out.println("Invalid distance! Enter valid distance: ");
+        while(distance < 1) {
+            System.out.print("Invalid distance. Enter correct distance: ");
+            sc.nextLine(); //skip '\n' after double
             distance = sc.nextDouble();
         }
 
-        try{
-            Road newRoad = Road.fromKilometers(storage.getAllTowns().get(first-1), storage.getAllTowns().get(second-1), distance);
+        TownRepository townRepository = new TownRepository();
 
-            for(Road element: storage.getAllRoads()){
-                if(element.equals(newRoad)){
-                    System.out.println("This road already exists!");
-                    return;
-                }
-            }
+        RoadId roadId = new RoadId();
+        roadId.setLeftId(townRepository.findByName(leftTown).getId());
+        roadId.setRightId(townRepository.findByName(rightTown).getId());
 
-            storage.addRoad(newRoad);
-        } catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-            return;
-        }
+        RoadEntity obj = new RoadEntity();
+        obj.setId(roadId);
+        obj.setDistance(distance);
+        RoadRepository roadRepository = new RoadRepository();
+        roadRepository.create(obj);
     }
 }
