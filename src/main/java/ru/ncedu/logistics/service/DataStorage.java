@@ -3,6 +3,7 @@ package ru.ncedu.logistics.service;
 import ru.ncedu.logistics.model.*;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,26 +11,30 @@ import java.util.Scanner;
 
 public class DataStorage implements Serializable{
 
+    private Connection connection;
+
     private List<Town> towns = new LinkedList<>();
     private List<Product> products = new LinkedList<>();
     private List<Road> roads = new LinkedList<>();
     private List<Offering> offerings = new LinkedList<>();
 
-    public DataStorage(){}
-
-    public void clear(){
-        towns.clear();
-        products.clear();
-        roads.clear();
-        offerings.clear();
+    public DataStorage(Connection c){
+        this.connection = c;
     }
 
-    public void restore(DataStorage dump){
-        this.towns = dump.getAllTowns();
-        this.products = dump.getAllProducts();
-        this.roads = dump.getAllRoads();
-        this.offerings = dump.getAllOfferings();
-    }
+//    public void clear(){
+//        towns.clear();
+//        products.clear();
+//        roads.clear();
+//        offerings.clear();
+//    }
+//
+//    public void restore(DataStorage dump){
+//        this.towns = dump.getAllTowns();
+//        this.products = dump.getAllProducts();
+//        this.roads = dump.getAllRoads();
+//        this.offerings = dump.getAllOfferings();
+//    }
 
     public List<Town> getAllTowns() {
         return towns;

@@ -1,27 +1,35 @@
 package ru.ncedu.logistics.service.factory;
 
+import ru.ncedu.logistics.model.entity.TownEntity;
+import ru.ncedu.logistics.repository.TownRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
-import ru.ncedu.logistics.service.DataStorage;
-import ru.ncedu.logistics.model.Town;
+
+import java.sql.SQLException;
+import java.util.Scanner;
 
 public class TownFactory implements StringBasedImporter {
 
-    private DataStorage storage;
+    private static final TownRepository townRepository = new TownRepository();
 
-    public TownFactory(DataStorage storage){
-        this.storage = storage;
-    }
-
-    public void importFromString(String string)
-    {
-        String[] newTowns = string.split(" ");
-        for(String el: newTowns){
-            storage.addTown(new Town(el));
+    public void importFromString(String string) {
+        try {
+            townRepository.importFromFile(string);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void addTownByUser(){
-        System.out.println("\nMethod: addTown");
-        storage.addTown(new Town());
+    public void createTown(){
+        System.out.println("\nMethod: createTown");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter town's name: ");
+        TownEntity obj = new TownEntity();
+        obj.setName(sc.nextLine());
+        try {
+            townRepository.create(obj);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+
 }

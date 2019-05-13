@@ -1,45 +1,67 @@
 package ru.ncedu.logistics.service.factory;
 
-import ru.ncedu.logistics.model.Town;
+import ru.ncedu.logistics.model.entity.OfficeEntity;
+import ru.ncedu.logistics.model.entity.TownEntity;
+import ru.ncedu.logistics.repository.OfficeRepository;
+import ru.ncedu.logistics.repository.TownRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
-import ru.ncedu.logistics.service.DataStorage;
-import ru.ncedu.logistics.model.Office;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class OfficeFactory implements StringBasedImporter {
 
-    private DataStorage storage;
+    private static final TownRepository townRepository = new TownRepository();
+    private static final OfficeRepository officeRepository = new OfficeRepository();
 
-    public OfficeFactory(DataStorage storage){
-        this.storage = storage;
-    }
 
     public void importFromString(String string) {
         String[] data = string.split(" ");
-        storage.getTownByName(data[0]).addOffice(new Office(storage.getTownByName(data[0]), data[1]));
+
+        OfficeEntity office = new OfficeEntity();
+
+        try {
+            TownEntity town = townRepository.findByName(data[0]);
+
+            office.setTownId(town.getId());
+            office.setPhone(Integer.valueOf(data[1]));
+
+            officeRepository.create(office);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
-    public void addOfficeByUser(){
-        System.out.println("\nMethod: addOffice");
-        System.out.println("List of towns:");
-        int number = 0;
-        for(Town element: storage.getAllTowns()){
-            System.out.println(++number + ") " + element.getName());
-        }
-
-        //Selecting town
-        System.out.print("Select town in which add office: ");
+    public void createOffice(){
+        System.out.println("\nMethod: createOffice");
+        OfficeEntity office = new OfficeEntity();
         Scanner sc = new Scanner(System.in);
-        int selectedTown = sc.nextInt();
-        while (selectedTown < 1 || selectedTown > storage.getAllTowns().size()) {
-            System.out.println("Invalid choice! Make a valid choice: ");
-            selectedTown = sc.nextInt();
-        }
 
-        //Adding office and initializing offerings of new office
-        System.out.print("Enter office's phone number: ");
-        sc.nextLine(); //skip '\n' after int
-        storage.getAllTowns().get(selectedTown-1).addOffice(new Office(storage.getAllTowns().get(selectedTown-1), sc.nextLine())); //sc.nextLine - String Office::phone
+        System.out.print("Enter town's name where office located: ");
+        try {
+            TownEntity town = townRepository.findByName(sc.nextLine());
+            office.setTownId(town.getId());
+
+            System.out.print("Enter office's phone number: ");
+            office.setPhone(sc.nextInt());
+
+            officeRepository.create(office);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showOfficeInfo(){
+        System.out.println("\nMethod: showOfficeInfo");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter town's name: ");
+        String townName = sc.nextLine();
+
+        try {
+            officeRepository.showOfficeInfo(townName);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

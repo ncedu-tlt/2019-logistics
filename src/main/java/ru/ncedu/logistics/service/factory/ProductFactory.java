@@ -1,27 +1,36 @@
 package ru.ncedu.logistics.service.factory;
 
+import ru.ncedu.logistics.model.entity.ProductEntity;
+import ru.ncedu.logistics.repository.ProductRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
-import ru.ncedu.logistics.service.DataStorage;
-import ru.ncedu.logistics.model.Product;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Scanner;
 
 public class ProductFactory implements StringBasedImporter {
 
-    private DataStorage storage;
-
-    public ProductFactory(DataStorage storage){
-        this.storage = storage;
-    }
+    private static final ProductRepository productRepository = new ProductRepository();
 
     public void importFromString(String string){
-        String[] newProducts = string.split(" ");
-        for(String el: newProducts){
-            storage.addProduct(new Product(el));
+        try {
+            productRepository.importFromFile(string);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void addProductByUser(){
-        System.out.println("\nMethod: addProduct");
-        storage.addProduct(new Product());
+    public void createProduct(){
+        System.out.println("\nMethod: createProduct");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter product's name: ");
+        ProductEntity obj = new ProductEntity();
+        obj.setName(sc.nextLine());
+        try {
+            productRepository.create(obj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

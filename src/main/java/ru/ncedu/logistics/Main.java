@@ -1,32 +1,51 @@
 package ru.ncedu.logistics;
 
-import ru.ncedu.logistics.service.DataStorage;
+import ru.ncedu.logistics.service.DatabaseConnection;
 import ru.ncedu.logistics.service.TestDataInitializer;
 import ru.ncedu.logistics.service.factory.*;
 import ru.ncedu.logistics.service.import_export.ExportedContent;
 import ru.ncedu.logistics.service.import_export.SerializationService;
 import ru.ncedu.logistics.ui.MenuAction;
 
+import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
 
-    private final static DataStorage STORAGE = new DataStorage();
-
     public static void main(String[] args) {
-        System.out.println("\nLogistics 2019. You are welcome!\n");
-
-        TestDataInitializer testDataInitializer = new TestDataInitializer(STORAGE);
-
-        System.out.println("Would you like to import data from file?");
-        System.out.println("1) Yes");
-        System.out.println("2) No");
-
+        System.out.println("\nLogistics 2019. You are welcome!");
         Scanner sc = new Scanner(System.in);
-        if(sc.nextInt() == 1){
-            testDataInitializer.importData("testData.txt");
-        } else {
-            testDataInitializer.createTestData();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("PostgreSQL JDBC Driver is not found.");
+            e.printStackTrace();
+            return;
+        }
+
+        System.out.print("Would you like to clear database? Yes(1) No(0): ");
+        if(sc.nextInt() == 1) {
+            try{
+                DatabaseConnection dbc = new DatabaseConnection();
+                Connection cnt = dbc.getConnection();
+                Statement stm = cnt.createStatement();
+                stm.execute("SELECT clear()");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.print("Would you like to load testdata? Yes(1) No(0): ");
+        if(sc.nextInt() == 1) {
+            try{
+                DatabaseConnection dbc = new DatabaseConnection();
+                Connection cnt = dbc.getConnection();
+                Statement stm = cnt.createStatement();
+                stm.execute("SELECT init_test_data();");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         MenuAction[] actions = MenuAction.values();
@@ -49,29 +68,35 @@ public class Main {
             action = actions[act-1];
             switch (action){
                 case ADD_TOWN:
-                    TownFactory townFactory = new TownFactory(STORAGE);
-                    townFactory.addTownByUser(); break;
+                    TownFactory townFactory = new TownFactory();
+                    townFactory.createTown(); break;
                 case ADD_OFFICE:
-                    OfficeFactory officeFactory = new OfficeFactory(STORAGE);
-                    officeFactory.addOfficeByUser(); break;
+                    OfficeFactory officeFactory = new OfficeFactory();
+                    officeFactory.createOffice(); break;
                 case ADD_OFFERING:
-                    OfferingFactory offeringFactory = new OfferingFactory(STORAGE);
-                    offeringFactory.addOfferingByUser(); break;
+                    OfferingFactory offeringFactory = new OfferingFactory();
+                    offeringFactory.createOffering(); break;
                 case ADD_PRODUCT:
-                    ProductFactory productFactory = new ProductFactory(STORAGE);
-                    productFactory.addProductByUser(); break;
+                    ProductFactory productFactory = new ProductFactory();
+                    productFactory.createProduct(); break;
                 case ADD_ROAD:
-                    RoadFactory roadFactory = new RoadFactory(STORAGE);
-                    roadFactory.addRoadByUser(); break;
-                case SHOW_INFO: STORAGE.showOfficeInfo(); break;
-                case FIND_PRODUCT: STORAGE.findProduct(); break;
+                    RoadFactory roadFactory = new RoadFactory();
+                    roadFactory.createRoad(); break;
+                case SHOW_INFO:
+                    OfficeFactory officeFactory1 = new OfficeFactory();
+                    officeFactory1.showOfficeInfo(); break;
+                case FIND_PRODUCT:
+                    OfferingFactory offeringFactory1 = new OfferingFactory();
+                    offeringFactory1.findProduct(); break;
                 case EXPORT:
-                    SerializationService.serializeDataStorageToFile(new ExportedContent(STORAGE)); break;
+                    SerializationService.serializeDataStorageToFile(); break;
                 case IMPORT:
-                    SerializationService.deserializeDataStorageFromFile(STORAGE); break;
+                    TestDataInitializer testDataInitializer = new TestDataInitializer();
+                    testDataInitializer.importData(); break;
                 }
             } while (action != MenuAction.EXIT);
             System.out.println("Program is halt...");
+
     }
 
 }
