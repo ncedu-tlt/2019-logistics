@@ -3,8 +3,8 @@ package ru.ncedu.logistics.model.entity;
 import java.io.Serializable;
 
 public class OfferingId implements Serializable {
-    private Integer officeId;
-    private Integer productId;
+    private int officeId;
+    private int productId;
 
     public Integer getOfficeId() {
         return officeId;

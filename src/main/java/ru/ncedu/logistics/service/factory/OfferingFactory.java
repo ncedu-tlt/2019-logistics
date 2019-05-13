@@ -6,10 +6,15 @@ import ru.ncedu.logistics.repository.OfficeRepository;
 import ru.ncedu.logistics.repository.ProductRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class OfferingFactory implements StringBasedImporter {
+
+    private static final OfficeRepository officeRepository = new OfficeRepository();
+    private static final ProductRepository productRepository = new ProductRepository();
+    private static final OfferingRepository offeringRepository = new OfferingRepository();
+
 
     public void importFromString(String string){
         //data[0] - town name
@@ -21,17 +26,20 @@ public class OfferingFactory implements StringBasedImporter {
         OfficeRepository officeRepository = new OfficeRepository();
         ProductRepository productRepository = new ProductRepository();
 
-        OfferingId offeringId = new OfferingId();
-        offeringId.setOfficeId(officeRepository.findByTownNameAndPhone(data[0], Integer.valueOf(data[1])).getId());
-        offeringId.setProductId(productRepository.findByName(data[2]).getId());
+        try {
+            OfferingId offeringId = new OfferingId();
+            offeringId.setOfficeId(officeRepository.findByTownNameAndPhone(data[0], Integer.valueOf(data[1])).getId());
+            offeringId.setProductId(productRepository.findByName(data[2]).getId());
 
-        OfferingEntity obj = new OfferingEntity();
-        obj.setId(offeringId);
-        obj.setPrice(Double.valueOf(data[3]));
+            OfferingEntity obj = new OfferingEntity();
+            obj.setId(offeringId);
+            obj.setPrice(Double.valueOf(data[3]));
 
-        OfferingRepository offeringRepository = new OfferingRepository();
-        offeringRepository.create(obj);
-
+            OfferingRepository offeringRepository = new OfferingRepository();
+            offeringRepository.create(obj);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void createOffering(){
@@ -45,12 +53,10 @@ public class OfferingFactory implements StringBasedImporter {
         int phone = sc.nextInt();
         sc.nextLine(); //skip '\n' after int
 
-        OfficeRepository officeRepository = new OfficeRepository();
 
         System.out.print("Enter product's name: ");
         String productName = sc.nextLine();
 
-        ProductRepository productRepository = new ProductRepository();
 
         System.out.print("Enter product's price: ");
         double price = sc.nextDouble();
@@ -60,16 +66,19 @@ public class OfferingFactory implements StringBasedImporter {
             price = sc.nextDouble();
         }
 
-        OfferingId offeringId = new OfferingId();
-        offeringId.setOfficeId(officeRepository.findByTownNameAndPhone(townName, phone).getId());
-        offeringId.setProductId(productRepository.findByName(productName).getId());
+        try {
+            OfferingId offeringId = new OfferingId();
+            offeringId.setOfficeId(officeRepository.findByTownNameAndPhone(townName, phone).getId());
+            offeringId.setProductId(productRepository.findByName(productName).getId());
 
-        OfferingEntity obj = new OfferingEntity();
-        obj.setId(offeringId);
-        obj.setPrice(price);
+            OfferingEntity obj = new OfferingEntity();
+            obj.setId(offeringId);
+            obj.setPrice(price);
 
-        OfferingRepository offeringRepository = new OfferingRepository();
-        offeringRepository.create(obj);
+            offeringRepository.create(obj);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void findProduct(){
@@ -77,9 +86,11 @@ public class OfferingFactory implements StringBasedImporter {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter product's name: ");
-        ProductRepository productRepository = new ProductRepository();
-        OfferingRepository offeringRepository = new OfferingRepository();
-        offeringRepository.findOfferingsByProductId(productRepository.findByName(sc.nextLine()).getId());
+        try {
+            offeringRepository.findOfferingsByProductId(productRepository.findByName(sc.nextLine()).getId());
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
 

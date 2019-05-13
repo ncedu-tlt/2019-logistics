@@ -3,8 +3,8 @@ package ru.ncedu.logistics.model.entity;
 import java.io.Serializable;
 
 public class RoadId implements Serializable {
-    private Integer leftId;
-    private Integer rightId;
+    private int leftId;
+    private int rightId;
 
     public Integer getLeftId() {
         return leftId;

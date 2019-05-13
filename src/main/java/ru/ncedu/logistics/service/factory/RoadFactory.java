@@ -6,30 +6,36 @@ import ru.ncedu.logistics.repository.RoadRepository;
 import ru.ncedu.logistics.repository.TownRepository;
 import ru.ncedu.logistics.service.import_export.StringBasedImporter;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class RoadFactory implements StringBasedImporter {
+
+    private static final RoadRepository roadRepository = new RoadRepository();
+    private static final TownRepository townRepository = new TownRepository();
+
 
     public void importFromString(String string){
         //data[0] - left town
         //data[1] - right town
         //data[2] - distance
         String[] data = string.split(" ");
-        TownRepository townRepository = new TownRepository();
 
         RoadId roadId = new RoadId();
-        roadId.setLeftId(townRepository.findByName(data[0]).getId());
-        roadId.setRightId(townRepository.findByName(data[1]).getId());
+        try {
+            roadId.setLeftId(townRepository.findByName(data[0]).getId());
+            roadId.setRightId(townRepository.findByName(data[1]).getId());
 
-        RoadEntity obj = new RoadEntity();
-        obj.setId(roadId);
+            RoadEntity obj = new RoadEntity();
+            obj.setId(roadId);
 
-        if(Double.valueOf(data[2])>1){
-            obj.setDistance(Double.valueOf(data[2]));
-            RoadRepository roadRepository = new RoadRepository();
-            roadRepository.create(obj);
+            if (Double.valueOf(data[2]) > 1) {
+                obj.setDistance(Double.valueOf(data[2]));
+                roadRepository.create(obj);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
         }
-
     }
 
     public void createRoad(){
@@ -55,16 +61,17 @@ public class RoadFactory implements StringBasedImporter {
             distance = sc.nextDouble();
         }
 
-        TownRepository townRepository = new TownRepository();
+        try {
+            RoadId roadId = new RoadId();
+            roadId.setLeftId(townRepository.findByName(leftTown).getId());
+            roadId.setRightId(townRepository.findByName(rightTown).getId());
 
-        RoadId roadId = new RoadId();
-        roadId.setLeftId(townRepository.findByName(leftTown).getId());
-        roadId.setRightId(townRepository.findByName(rightTown).getId());
-
-        RoadEntity obj = new RoadEntity();
-        obj.setId(roadId);
-        obj.setDistance(distance);
-        RoadRepository roadRepository = new RoadRepository();
-        roadRepository.create(obj);
+            RoadEntity obj = new RoadEntity();
+            obj.setId(roadId);
+            obj.setDistance(distance);
+            roadRepository.create(obj);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
