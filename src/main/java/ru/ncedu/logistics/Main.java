@@ -1,9 +1,9 @@
 package ru.ncedu.logistics;
 
 import ru.ncedu.logistics.service.DatabaseConnection;
+import ru.ncedu.logistics.service.SearchAlgorithm;
 import ru.ncedu.logistics.service.TestDataInitializer;
 import ru.ncedu.logistics.service.factory.*;
-import ru.ncedu.logistics.service.import_export.ExportedContent;
 import ru.ncedu.logistics.service.import_export.SerializationService;
 import ru.ncedu.logistics.ui.MenuAction;
 
@@ -11,6 +11,12 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
+
+    private static final TownFactory townFactory = new TownFactory();
+    private static final ProductFactory productFactory = new ProductFactory();
+    private static final OfficeFactory officeFactory = new OfficeFactory();
+    private static final OfferingFactory offeringFactory = new OfferingFactory();
+    private static final RoadFactory roadFactory = new RoadFactory();
 
     public static void main(String[] args) {
         System.out.println("\nLogistics 2019. You are welcome!");
@@ -24,25 +30,29 @@ public class Main {
             return;
         }
 
-        System.out.print("Would you like to clear database? Yes(1) No(0): ");
-        if(sc.nextInt() == 1) {
-            try{
-                DatabaseConnection dbc = new DatabaseConnection();
-                Connection cnt = dbc.getConnection();
+        System.out.print("Would you like to clear database? (Y)es (N)o: ");
+        String clear = sc.nextLine();
+        if(clear.startsWith("Y") || clear.startsWith("y")){
+           try{
+                Connection cnt = DatabaseConnection.getConnection();
                 Statement stm = cnt.createStatement();
                 stm.execute("SELECT clear()");
+                stm.close();
+                cnt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.print("Would you like to load testdata? Yes(1) No(0): ");
-        if(sc.nextInt() == 1) {
+        System.out.print("Would you like to load testdata? (Y)es (N)o: ");
+        String load = sc.nextLine();
+        if(load.startsWith("Y") || load.startsWith("y")){
             try{
-                DatabaseConnection dbc = new DatabaseConnection();
-                Connection cnt = dbc.getConnection();
+                Connection cnt = DatabaseConnection.getConnection();
                 Statement stm = cnt.createStatement();
                 stm.execute("SELECT init_test_data();");
+                stm.close();
+                cnt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -50,6 +60,8 @@ public class Main {
 
         MenuAction[] actions = MenuAction.values();
         MenuAction action;
+
+        Connection cnt = DatabaseConnection.getConnection();
 
         do{
             //Menu
@@ -68,34 +80,29 @@ public class Main {
             action = actions[act-1];
             switch (action){
                 case ADD_TOWN:
-                    TownFactory townFactory = new TownFactory();
                     townFactory.createTown(); break;
                 case ADD_OFFICE:
-                    OfficeFactory officeFactory = new OfficeFactory();
                     officeFactory.createOffice(); break;
                 case ADD_OFFERING:
-                    OfferingFactory offeringFactory = new OfferingFactory();
                     offeringFactory.createOffering(); break;
                 case ADD_PRODUCT:
-                    ProductFactory productFactory = new ProductFactory();
                     productFactory.createProduct(); break;
                 case ADD_ROAD:
-                    RoadFactory roadFactory = new RoadFactory();
                     roadFactory.createRoad(); break;
                 case SHOW_INFO:
-                    OfficeFactory officeFactory1 = new OfficeFactory();
-                    officeFactory1.showOfficeInfo(); break;
+                    officeFactory.showOfficeInfo(); break;
                 case FIND_PRODUCT:
-                    OfferingFactory offeringFactory1 = new OfferingFactory();
-                    offeringFactory1.findProduct(); break;
+                    offeringFactory.findProduct(); break;
+                case SEARCH:
+                    SearchAlgorithm.search(); break;
                 case EXPORT:
-                    SerializationService.serializeDataStorageToFile(); break;
+                    SerializationService.serializeDataToFile(); break;
                 case IMPORT:
-                    TestDataInitializer testDataInitializer = new TestDataInitializer();
-                    testDataInitializer.importData(); break;
+                    TestDataInitializer.importData(); break;
                 }
             } while (action != MenuAction.EXIT);
             System.out.println("Program is halt...");
+
 
     }
 

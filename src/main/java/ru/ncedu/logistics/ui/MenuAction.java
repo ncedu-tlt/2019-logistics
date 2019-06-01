@@ -8,6 +8,7 @@ public enum MenuAction {
     ADD_ROAD("Add road between towns"),
     SHOW_INFO("Show info about office"),
     FIND_PRODUCT("Show offerings with product"),
+    SEARCH("Show the cheapest option"),
     EXPORT("Export current data"),
     IMPORT("Import data from file"),
     EXIT("Exit from programm");

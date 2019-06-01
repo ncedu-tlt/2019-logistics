@@ -15,10 +15,10 @@ public class TownRepository implements CRUD<TownEntity, Integer> {
         stm.setString(1, obj.getName());
         stm.execute();
         ResultSet resultSet = stm.getGeneratedKeys();
-        stm.close();
         if(resultSet.next()){
             obj.setId(resultSet.getInt(1));
         }
+        stm.close();
         return obj;
     }
 
@@ -50,11 +50,11 @@ public class TownRepository implements CRUD<TownEntity, Integer> {
         PreparedStatement stm = connection.prepareStatement("SELECT * FROM towns WHERE id = ?");
         stm.setInt(1, id);
         ResultSet resultSet = stm.executeQuery();
-        stm.close();
         if(resultSet.next()){
-                obj.setName(resultSet.getString("name"));
-                obj.setId(resultSet.getInt("id"));
+            obj.setName(resultSet.getString("name"));
+            obj.setId(resultSet.getInt("id"));
         }
+        stm.close();
         return obj;
     }
 
@@ -64,10 +64,10 @@ public class TownRepository implements CRUD<TownEntity, Integer> {
         PreparedStatement stm = connection.prepareStatement("SELECT id FROM towns WHERE name = ?");
         stm.setString(1, name);
         ResultSet resultSet = stm.executeQuery();
-        stm.close();
         if(resultSet.next()){
             obj.setId(resultSet.getInt(1));
         }
+        stm.close();
         return obj;
     }
 
@@ -80,5 +80,16 @@ public class TownRepository implements CRUD<TownEntity, Integer> {
         }
         stm.executeBatch();
         stm.close();
+    }
+
+    public String getTownNameById(int id) throws SQLException {
+        PreparedStatement stm = connection.prepareStatement("SELECT name FROM towns WHERE id = ?");
+        stm.setInt(1, id);
+        ResultSet resultSet = stm.executeQuery();
+        while(resultSet.next()){
+            return resultSet.getString(1);
+        }
+
+        return "ERROR";
     }
 }

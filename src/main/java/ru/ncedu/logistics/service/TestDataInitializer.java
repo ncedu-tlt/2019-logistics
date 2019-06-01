@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class TestDataInitializer {
 
-    private Map<String, StringBasedImporter> importers = new HashMap<>();
+    private static Map<String, StringBasedImporter> importers = new HashMap<>();
 
     public TestDataInitializer(){
         importers.put("Products", new ProductFactory());
@@ -24,7 +24,7 @@ public class TestDataInitializer {
         importers.put("Road", new RoadFactory());
     }
 
-    public void importData(){
+    public static void importData(){
 
         System.out.print("Enter input file: ");
         Scanner sc = new Scanner(System.in);

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RoadRepository implements CRUD<RoadEntity, RoadId> {
 
@@ -56,11 +58,33 @@ public class RoadRepository implements CRUD<RoadEntity, RoadId> {
         stm.setInt(1, id.getLeftId());
         stm.setInt(2, id.getRightId());
         ResultSet resultSet = stm.executeQuery();
-        stm.close();
         if(resultSet.next()){
             obj.setDistance(resultSet.getDouble("distance"));
         }
+        stm.close();
         return obj;
     }
 
+    public List<RoadEntity> findRoads(int currentTownId) throws SQLException {
+        List<RoadEntity> newRoads = new LinkedList<>();
+
+        PreparedStatement stm = connection.prepareStatement("SELECT * FROM roads WHERE left_town_id = ? OR right_town_id = ?");
+        stm.setInt(1, currentTownId);
+        stm.setInt(2, currentTownId);
+        ResultSet resultSet = stm.executeQuery();
+
+        while(resultSet.next()){
+            RoadEntity obj = new RoadEntity();
+            RoadId roadId = new RoadId();
+
+            roadId.setLeftId(resultSet.getInt("left_town_id"));
+            roadId.setRightId(resultSet.getInt("right_town_id"));
+
+            obj.setId(roadId);
+            obj.setDistance(resultSet.getDouble("distance"));
+            newRoads.add(obj);
+        }
+        stm.close();
+        return newRoads;
+    }
 }
