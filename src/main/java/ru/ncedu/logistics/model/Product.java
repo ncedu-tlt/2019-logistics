@@ -1,5 +1,7 @@
 package ru.ncedu.logistics.model;
 
+import ru.ncedu.logistics.model.entity.ProductEntity;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
@@ -12,6 +14,10 @@ public class Product implements Serializable {
         Scanner sc = new Scanner(System.in);
         this.name = sc.nextLine();
 
+    }
+
+    public Product(ProductEntity obj){
+        this.name = obj.getName();
     }
 
     public Product(String name) {
