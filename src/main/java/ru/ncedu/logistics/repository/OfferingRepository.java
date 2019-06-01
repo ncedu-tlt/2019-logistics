@@ -14,6 +14,7 @@ public class OfferingRepository implements CRUD<OfferingEntity, OfferingId> {
     private Connection connection = DatabaseConnection.getConnection();
     private static final TownRepository townRepository = new TownRepository();
     private static final OfficeRepository officeRepository = new OfficeRepository();
+    private static final ProductRepository productRepository = new ProductRepository();
 
     public OfferingEntity create(OfferingEntity obj) throws SQLException {
         PreparedStatement stm = connection.prepareStatement("INSERT INTO offerings(office_id, product_id, price) VALUES (?, ?, ?)");
@@ -57,11 +58,11 @@ public class OfferingRepository implements CRUD<OfferingEntity, OfferingId> {
         stm.setInt(1, id.getOfficeId());
         stm.setInt(2, id.getProductId());
         ResultSet resultSet = stm.executeQuery();
-        stm.close();
         if(resultSet.next()) {
-             obj.setId(id);
-             obj.setPrice(resultSet.getDouble("price"));
+            obj.setId(id);
+            obj.setPrice(resultSet.getDouble("price"));
         }
+        stm.close();
         return obj;
     }
 
@@ -71,7 +72,6 @@ public class OfferingRepository implements CRUD<OfferingEntity, OfferingId> {
         stm.setInt(1, productId);
 
         ResultSet resultSet = stm.executeQuery();
-        stm.close();
 
         int count = 0;
 
@@ -81,5 +81,36 @@ public class OfferingRepository implements CRUD<OfferingEntity, OfferingId> {
             System.out.println("Phone: " + officeRepository.getById(resultSet.getInt("office_id")).getPhone());
             System.out.println("Price: " + resultSet.getDouble("price") + '\n');
         }
+        stm.close();
+    }
+
+    public OfferingEntity findMinOffer(int townId, String productName) throws SQLException{
+        OfferingEntity obj = null;
+
+        int productId = productRepository.findByName(productName).getId();
+        OfferingId offeringId = new OfferingId();
+        offeringId.setProductId(productId);
+
+        PreparedStatement stm = connection.prepareStatement("SELECT DISTINCT office_id, price FROM offerings " +
+                                                            "JOIN offices ON(offerings.office_id = offices.id) " +
+                                                            "WHERE offerings.product_id = ? AND offices.town_id = ? " +
+                                                            "ORDER BY price ASC LIMIT 1");
+
+        stm.setInt(1, productId);
+        stm.setInt(2, townId);
+
+        ResultSet resultSet = stm.executeQuery();
+        if(!resultSet.isBeforeFirst()){
+            return obj;
+        }
+
+        obj = new OfferingEntity();
+        while(resultSet.next()){
+            offeringId.setOfficeId(resultSet.getInt("office_id"));
+            obj.setPrice(resultSet.getDouble("price"));
+        }
+        stm.close();
+        obj.setId(offeringId);
+        return obj;
     }
 }
