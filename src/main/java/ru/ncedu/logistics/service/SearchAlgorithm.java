@@ -101,8 +101,7 @@ public class SearchAlgorithm {
             double productPrice = minOfferingEntity.getPrice();
             System.out.println("Product price: " + productPrice);
             System.out.println("Total price: " + (minTownCost*0.5 + productPrice));
-            System.out.print("Path: " + townRepository.getTownNameById(initialTownId.getId()));
-            System.out.println(pathToMinTown);
+            System.out.print("Path: ");
             for(int id : pathToMinTown){
                 System.out.println(townRepository.getTownNameById(id));
             }
