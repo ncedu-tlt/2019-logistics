@@ -1,5 +1,8 @@
 package ru.ncedu.logistics.servlet;
 
+import ru.ncedu.logistics.beans.TestBean;
+
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +20,9 @@ public class LifecycleTest extends HttpServlet {
     private final LocalDate creationDate = LocalDate.now();
     private final AtomicInteger counter = new AtomicInteger();
 
+    @Inject
+    private TestBean testBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter responseWriter = resp.getWriter();
@@ -24,6 +30,7 @@ public class LifecycleTest extends HttpServlet {
         responseWriter.write("Static counter " + STATIC_COUNTER.incrementAndGet() + "\n");
         responseWriter.write("Instance date " + creationDate + "\n");
         responseWriter.write("Instance counter " + counter.incrementAndGet() + "\n");
+        responseWriter.write("Bean date " + testBean.getDate() + "\n");
         responseWriter.write("Press F5 to refresh this page");
     }
 
