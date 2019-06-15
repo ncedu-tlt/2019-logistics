@@ -4,7 +4,7 @@
     <title>Logistics 2019</title>
   </head>
   <body>
-    Change this text to "Hello, World!"<br>
+    <h1>Hello someone!</h1>
     <a href="lifecycle">Lifecycle servlet</a>
   </body>
 </html>
