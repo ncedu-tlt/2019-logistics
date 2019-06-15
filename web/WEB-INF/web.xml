@@ -8,20 +8,18 @@
         <filter-name>AccessLog</filter-name>
         <filter-class>ru.ncedu.logistics.filter.AccessLog</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
     <servlet>
-        <servlet-name>LifecycleTest</servlet-name>
-        <servlet-class>ru.ncedu.logistics.servlet.LifecycleTest</servlet-class>
+        <servlet-name>TownListServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.TownListServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>LifecycleTest</servlet-name>
-        <url-pattern>/lifecycle</url-pattern>
+        <servlet-name>TownListServlet</servlet-name>
+        <url-pattern>/town</url-pattern>
     </servlet-mapping>
 
 </web-app>

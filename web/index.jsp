@@ -5,6 +5,5 @@
   </head>
   <body>
     <h1>Hello someone!</h1>
-    <a href="lifecycle">Lifecycle servlet</a>
   </body>
 </html>
