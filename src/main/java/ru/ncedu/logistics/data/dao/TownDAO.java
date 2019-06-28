@@ -11,4 +11,9 @@ public class TownDAO extends LogisticsDAO<TownEntity, Integer> {
         init(TownEntity.class);
     }
 
+    public TownEntity findByName(String name){
+        return (TownEntity) this.entityManager.createQuery("FROM " + TownEntity.class.getName() +
+                                                "town WHERE obj.name = " + name).getSingleResult();
+    }
+
 }

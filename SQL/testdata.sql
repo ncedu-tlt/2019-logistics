@@ -28,11 +28,5 @@ BEGIN
 		END LOOP;
 	END LOOP;
 
-	SELECT * INTO left_town_row FROM towns ORDER BY towns.id ASC LIMIT 1;
-	SELECT * INTO right_town_row FROM towns ORDER BY towns.id ASC OFFSET 1 LIMIT 1;
-	INSERT INTO roads(left_town_id, right_town_id, distance) VALUES
-		(left_town_row.id, right_town_row.id, 80);
-	SELECT * INTO left_town_row FROM towns ORDER BY towns.id ASC OFFSET 2 LIMIT 1;
-	INSERT INTO roads(left_town_id, right_town_id, distance) VALUES
-		(right_town_row.id, left_town_row.id, 495);
+
 END; $$;

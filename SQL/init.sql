@@ -68,7 +68,7 @@ CREATE SEQUENCE public.offices_ai_sequence
     NO MAXVALUE
     CACHE 1;
 
-CREATE FUNCTION public.towns_ai_trigger() RETURNS trigger
+/*CREATE FUNCTION public.towns_ai_trigger() RETURNS trigger
     LANGUAGE plpgsql
     AS $$DECLARE
 	possible_id towns.id%TYPE;
@@ -139,7 +139,7 @@ $$;
 CREATE TRIGGER towns_ai_trigger_on_insert BEFORE INSERT ON public.towns FOR EACH ROW EXECUTE PROCEDURE public.towns_ai_trigger();
 CREATE TRIGGER products_ai_trigger_on_insert BEFORE INSERT ON public.products FOR EACH ROW EXECUTE PROCEDURE public.products_ai_trigger();
 CREATE TRIGGER offices_ai_trigger_on_insert BEFORE INSERT ON public.offices FOR EACH ROW EXECUTE PROCEDURE public.offices_ai_trigger();
-CREATE TRIGGER roads_ai_trigger_on_insert BEFORE INSERT ON public.roads FOR EACH ROW EXECUTE PROCEDURE public.roads_ai_trigger();
+CREATE TRIGGER roads_ai_trigger_on_insert BEFORE INSERT ON public.roads FOR EACH ROW EXECUTE PROCEDURE public.roads_ai_trigger(); */
 
 ALTER TABLE ONLY public.offerings
     ADD CONSTRAINT office_id_in_offerings FOREIGN KEY (office_id) REFERENCES public.offices(id);

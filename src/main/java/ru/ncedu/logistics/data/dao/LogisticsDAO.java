@@ -26,6 +26,7 @@ public abstract class LogisticsDAO<T extends Serializable, PK extends Serializab
 
     public void create(T entity){
         this.entityManager.persist(entity);
+        this.entityManager.flush();
     }
 
     public T update(T entity) {

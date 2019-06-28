@@ -4,6 +4,6 @@
         JdbcDriver org.postgresql.Driver
         JdbcUrl jdbc:postgresql://localhost:5432/logistics
         UserName postgres
-        Password postgres
+        Password dctghjcnj
     </Resource>
 </resources>

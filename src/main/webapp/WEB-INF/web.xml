@@ -8,18 +8,69 @@
         <filter-name>AccessLog</filter-name>
         <filter-class>ru.ncedu.logistics.filter.AccessLog</filter-class>
     </filter>
+
+    <servlet>
+        <servlet-name>TownDispatcher</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.dispatcher.TownDispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAllTownsServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.GetAllTownsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTownServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.GetTownServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTownServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.CreateTownServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTownServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.EditTownServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTownServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.DeleteTownServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetOfficesInTownServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.town.GetOfficesInTownServlet</servlet-class>
+    </servlet>
+
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
-    <servlet>
-        <servlet-name>TownListServlet</servlet-name>
-        <servlet-class>ru.ncedu.logistics.servlet.TownListServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
-        <servlet-name>TownListServlet</servlet-name>
-        <url-pattern>/town</url-pattern>
+        <servlet-name>TownDispatcher</servlet-name>
+        <url-pattern>/towns/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllTownsServlet</servlet-name>
+        <url-pattern>/GetAllTownsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTownServlet</servlet-name>
+        <url-pattern>/GetTownServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOfficesInTownServlet</servlet-name>
+        <url-pattern>/GetOfficesInTownServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateTownServlet</servlet-name>
+        <url-pattern>/CreateTownServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTownServlet</servlet-name>
+        <url-pattern>/EditTownServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTownServlet</servlet-name>
+        <url-pattern>/DeleteTownServlet</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

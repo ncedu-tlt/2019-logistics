@@ -32,8 +32,20 @@ public class TownService {
         townDAO.delete(townEntity);
     }
 
+    public void deleteById(int townId){
+        townDAO.deleteById(townId);
+    }
+
     public List<TownDTO> findAll() {
         return townDAO.findAll().stream().map(this::toTownDTO).collect(Collectors.toList());
+    }
+
+    public TownDTO findById(int townId){
+        return toTownDTO(townDAO.findById(townId));
+    }
+
+    public TownDTO findByName(String name){
+        return toTownDTO(townDAO.findByName(name));
     }
 
     public TownDTO toTownDTO(TownEntity townEntity) {
