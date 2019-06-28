@@ -1,7 +1,5 @@
 package ru.ncedu.logistics.dto;
 
-import ru.ncedu.logistics.data.entity.TownEntity;
-
 public class OfficeDTO {
 
     private Integer id;

@@ -9,7 +9,8 @@ import java.io.Serializable;
 public class ProductEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_ai_sequence")
+    @SequenceGenerator(name = "products_ai_sequence_generator",sequenceName = "products_ai_sequence",allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_ai_sequence_generator")
     @Column(name = "id")
     private Integer id;
 

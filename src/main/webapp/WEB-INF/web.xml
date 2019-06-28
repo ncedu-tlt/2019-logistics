@@ -37,6 +37,30 @@
         <servlet-name>GetOfficesInTownServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.town.GetOfficesInTownServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDispatcher</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.dispatcher.ProductDispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAllProductsServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.GetAllProductsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetProductServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.GetProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProductServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.EditProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.CreateProductServlet</servlet-class>
+    </servlet>
 
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
@@ -67,10 +91,34 @@
         <servlet-name>EditTownServlet</servlet-name>
         <url-pattern>/EditTownServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ProductDispatcher</servlet-name>
+        <url-pattern>/products/*</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteTownServlet</servlet-name>
         <url-pattern>/DeleteTownServlet</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>GetAllProductsServlet</servlet-name>
+        <url-pattern>/GetAllProductsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProductServlet</servlet-name>
+        <url-pattern>/GetProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProductServlet</servlet-name>
+        <url-pattern>/EditProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/CreateProductServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

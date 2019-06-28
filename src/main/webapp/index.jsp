@@ -14,6 +14,7 @@
   <body>
     <h1>This is logistics portal 2019!</h1>
     <p>Today is <%= getFormattedDate()%></p>
-    <a href="/towns">Towns table</a>
+    <a href="/towns">Towns table</a><br>
+    <a href="/products">Products table</a><br>
   </body>
 </html>

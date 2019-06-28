@@ -32,12 +32,9 @@ public class CreateTownServlet extends HttpServlet {
         TownDTO townDTO = new TownDTO();
         townDTO.setName(townName);
 
-        townService.create(townDTO);
+        townDTO = townService.create(townDTO);
 
-        req.setAttribute("action", "/CreateTownServlet");
-        req.setAttribute("isRO", "false");
-        req.setAttribute("isCreated", "true");
-
-        req.getRequestDispatcher("townEdit.jsp").forward(req, resp);
+        req.setAttribute("townId", townDTO.getId());
+        resp.sendRedirect("/towns/" + townDTO.getId() + "/edit");
     }
 }

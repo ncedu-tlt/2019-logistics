@@ -18,7 +18,13 @@ public class EditTownServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int townId = Integer.parseInt(req.getParameter("townId"));
+        String param = req.getParameter("townId");
+        Integer townId;
+        if(param == null){
+            townId = Integer.parseInt((String) req.getAttribute("townId"));
+        } else {
+            townId = Integer.parseInt(param);
+        }
 
         TownDTO town = townService.findById(townId);
 
@@ -32,8 +38,8 @@ public class EditTownServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         int townId = Integer.parseInt(req.getParameter("townId"));
+
         String townName = req.getParameter("townName");
 
         TownDTO townDTO = new TownDTO();

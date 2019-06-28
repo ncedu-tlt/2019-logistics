@@ -7,20 +7,18 @@
 <a href="/">Back to homepage</a>
 <body>
     <h2>List of towns</h2>
-    <form method="get" action="/CreateTownServlet">
+    <form method="GET" action="/CreateTownServlet">
         <input type="submit" value="Create new town">
     </form>
     <table border="1">
         <theadx>
             <tr>
-                <th>Town ID</th>
                 <th>Name</th>
             </tr>
         </theadx>
         <tbody>
             <c:forEach items="${townsList}" var="town">
                 <tr>
-                    <td>${town.getId()}</td>
                     <td><a href="/towns/${town.getId()}">${town.getName()}</a></td>
                 </tr>
             </c:forEach>

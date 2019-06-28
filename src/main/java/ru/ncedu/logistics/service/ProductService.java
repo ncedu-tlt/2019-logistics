@@ -3,6 +3,7 @@ package ru.ncedu.logistics.service;
 import ru.ncedu.logistics.data.dao.ProductDAO;
 import ru.ncedu.logistics.data.entity.ProductEntity;
 import ru.ncedu.logistics.dto.ProductDTO;
+import ru.ncedu.logistics.servlet.dispatcher.ProductDispatcher;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -32,8 +33,16 @@ public class ProductService {
         productDAO.delete(productEntity);
     }
 
+    public void deleteById(int productId){
+        productDAO.deleteById(productId);
+    }
+
     public List<ProductDTO> findAll() {
         return productDAO.findAll().stream().map(this::toProductDTO).collect(Collectors.toList());
+    }
+
+    public ProductDTO findById(int productId){
+        return toProductDTO(productDAO.findById(productId));
     }
 
     public ProductEntity toProductEntity(ProductDTO productDTO){

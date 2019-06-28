@@ -7,18 +7,19 @@
 <a href="/">Back to homepage</a>
 <body>
     <h2>List of products</h2>
+    <form method="GET" action="/CreateProductServlet">
+        <input type="submit" value="Create new product">
+    </form>
     <table border="1">
         <theadx>
             <tr>
-                <th>Product ID</th>
                 <th>Name</th>
             </tr>
         </theadx>
         <tbody>
             <c:forEach items="${productList}" var="product">
                 <tr>
-                    <td>${product.getId()}</td>
-                    <td>${product.getName()}</td>
+                    <td><a href="/products/${product.getId()}">${product.getName()}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -1,4 +1,4 @@
-package ru.ncedu.logistics.servlet;
+package ru.ncedu.logistics.servlet.product;
 
 import ru.ncedu.logistics.dto.ProductDTO;
 import ru.ncedu.logistics.service.ProductService;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ProductListServlet extends HttpServlet {
+public class GetAllProductsServlet extends HttpServlet {
 
     @Inject
     private ProductService productService;
@@ -19,7 +19,9 @@ public class ProductListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ProductDTO> productList = productService.findAll();
+
         req.setAttribute("productList", productList);
+
         req.getRequestDispatcher("products.jsp").forward(req,resp);
     }
 }
