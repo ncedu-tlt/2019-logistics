@@ -22,7 +22,15 @@ public class GetOfficesInTownServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int townId = Integer.parseInt(req.getParameter("townId"));
+        String param = req.getParameter("townId");
+        Integer townId;
+
+        if(param == null){
+            townId = Integer.parseInt((String) req.getAttribute("townId"));
+        } else {
+            townId = Integer.parseInt(param);
+        }
+
 
         String townName = townService.findById(townId).getName();
         List<OfficeDTO> officesById = officeService.findByTownId(townId);

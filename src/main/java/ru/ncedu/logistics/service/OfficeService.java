@@ -34,6 +34,10 @@ public class OfficeService {
         officeDAO.delete(officeEntity);
     }
 
+    public void deleteById(int officeId){
+        officeDAO.deleteById(officeId);
+    }
+
     public List<OfficeDTO> findByTownId(int townId){
         return officeDAO.findByTownId(townId).stream().map(this::toOfficeDTO).collect(Collectors.toList());
     }

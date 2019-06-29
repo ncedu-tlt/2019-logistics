@@ -2,6 +2,8 @@ package ru.ncedu.logistics.data.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "offices")
@@ -19,6 +21,9 @@ public class OfficeEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "town_id", nullable = false)
     private TownEntity town;
+
+    @OneToMany(mappedBy = "officeEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OfferingEntity> offeringEntitySet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -43,4 +48,5 @@ public class OfficeEntity implements Serializable {
     public void setTown(TownEntity town) {
         this.town = town;
     }
+
 }

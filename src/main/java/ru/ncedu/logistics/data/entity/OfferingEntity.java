@@ -1,8 +1,5 @@
 package ru.ncedu.logistics.data.entity;
 
-import com.sun.istack.NotNull;
-import org.apache.openjpa.persistence.ReadOnly;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

@@ -5,9 +5,13 @@
     <title>Offices</title>
 </head>
 <body>
-    <h2>Offices</h2>
     <a href="/">Back to homepage</a>
-    <p>Town: ${townName}</p>
+    <h2>List of offices</h2>
+    <label>Town: ${townName}</label>
+    <p></p>
+    <form method="GET" action="/CreateOfficeServlet">
+        <input type="submit" value="Create new office">
+    </form>
     <table border="1">
         <theadx>
             <tr>
@@ -17,7 +21,7 @@
         <tbody>
             <c:forEach items="${officesById}" var="office">
                 <tr>
-                    <td>${office.getPhone()}</td>
+                    <td><a href="/offices/${office.getId()}">${office.getPhone()}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

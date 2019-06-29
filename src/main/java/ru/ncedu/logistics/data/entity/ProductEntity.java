@@ -3,6 +3,8 @@ package ru.ncedu.logistics.data.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -17,6 +19,9 @@ public class ProductEntity implements Serializable {
     @NotNull
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OfferingEntity> offeringEntitySet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -33,4 +38,5 @@ public class ProductEntity implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 }

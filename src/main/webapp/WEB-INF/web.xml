@@ -37,6 +37,7 @@
         <servlet-name>GetOfficesInTownServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.town.GetOfficesInTownServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>ProductDispatcher</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.dispatcher.ProductDispatcher</servlet-class>
@@ -60,6 +61,27 @@
     <servlet>
         <servlet-name>CreateProductServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.product.CreateProductServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>OfficeDispatcher</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.dispatcher.OfficeDispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetOfficeServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.office.GetOfficeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOfficeServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.office.EditOfficeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteOfficeServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.office.DeleteOfficeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateOfficeServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.office.CreateOfficeServlet</servlet-class>
     </servlet>
 
     <filter-mapping>
@@ -119,6 +141,27 @@
     <servlet-mapping>
         <servlet-name>CreateProductServlet</servlet-name>
         <url-pattern>/CreateProductServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>OfficeDispatcher</servlet-name>
+        <url-pattern>/offices/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateOfficeServlet</servlet-name>
+        <url-pattern>/CreateOfficeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteOfficeServlet</servlet-name>
+        <url-pattern>/DeleteOfficeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOfficeServlet</servlet-name>
+        <url-pattern>/EditOfficeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOfficeServlet</servlet-name>
+        <url-pattern>/GetOfficeServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>
