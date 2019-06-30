@@ -19,8 +19,11 @@ public class TownEntity implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RoadEntity> roadEntitySet;
+    @OneToMany(mappedBy = "leftTown", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RoadEntity> leftRoads;
+
+    @OneToMany(mappedBy = "rightTown", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RoadEntity> rightRoads;
 
     public Integer getId() {
         return id;

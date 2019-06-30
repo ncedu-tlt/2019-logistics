@@ -14,11 +14,13 @@ public class RoadEntity implements Serializable {
     private double distance;
 
     @ManyToOne
-    @JoinColumn(name = "left_town_id", updatable = false, insertable = false)
+    @MapsId("leftId")
+    @JoinColumn(name = "left_town_id")
     private TownEntity leftTown;
 
     @ManyToOne
-    @JoinColumn(name = "right_town_id", updatable = false, insertable = false)
+    @MapsId("rightId")
+    @JoinColumn(name = "right_town_id")
     private TownEntity rightTown;
 
     public RoadId getRoadId() {
@@ -43,5 +45,13 @@ public class RoadEntity implements Serializable {
 
     public TownEntity getRightTown() {
         return rightTown;
+    }
+
+    public void setLeftTown(TownEntity leftTown) {
+        this.leftTown = leftTown;
+    }
+
+    public void setRightTown(TownEntity rightTown) {
+        this.rightTown = rightTown;
     }
 }

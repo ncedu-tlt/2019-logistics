@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <Resource id="logisticsDataSource" type="DataSource">
-        JdbcDriver org.postgresql.Driver
-        JdbcUrl jdbc:postgresql://localhost:5432/logistics
-        UserName postgres
-        Password dctghjcnj
+    <Resource id="logisticsDataSource" type="javax.sql.DataSource">
+        JtaManaged = false
+        JdbcDriver = org.postgresql.Driver
+        JdbcUrl = jdbc:postgresql://localhost:5432/logistics
+        UserName = postgres
+        Password = dctghjcnj
     </Resource>
 </resources>

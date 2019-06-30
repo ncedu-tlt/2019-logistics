@@ -22,6 +22,7 @@ public class RoadService {
     public RoadDTO create(RoadDTO roadDTO){
         RoadEntity roadEntity = toRoadEntity(roadDTO);
         roadDAO.create(roadEntity);
+        roadEntity = roadDAO.findById(roadEntity.getRoadId());
         return toRoadDTO(roadEntity);
     }
 
@@ -50,11 +51,9 @@ public class RoadService {
 
     public RoadEntity toRoadEntity(RoadDTO roadDTO){
         RoadEntity roadEntity = new RoadEntity();
-        RoadId roadId = new RoadId();
-        roadId.setLeftId(roadDTO.getLeftTown().getId());
-        roadId.setRightId(roadDTO.getRightTown().getId());
-        roadEntity.setRoadId(roadId);
         roadEntity.setDistance(roadDTO.getDistance());
+        roadEntity.setLeftTown(townService.toTownEntity(roadDTO.getLeftTown()));
+        roadEntity.setRightTown(townService.toTownEntity(roadDTO.getRightTown()));
         return roadEntity;
     }
 }

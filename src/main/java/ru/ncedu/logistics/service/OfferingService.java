@@ -23,8 +23,8 @@ public class OfferingService {
     public OfferingDTO create(OfferingDTO offeringDTO){
         OfferingEntity offeringEntity = toOfferingEntity(offeringDTO);
         offeringDAO.create(offeringEntity);
-        OfferingEntity offeringEntity1 = offeringDAO.findById(offeringEntity.getOfferingId());
-        return toOfferingDTO(offeringEntity1);
+        offeringEntity = offeringDAO.findById(offeringEntity.getOfferingId());
+        return toOfferingDTO(offeringEntity);
     }
 
     public OfferingDTO update(OfferingDTO offeringDTO){
@@ -60,11 +60,9 @@ public class OfferingService {
 
     public OfferingEntity toOfferingEntity(OfferingDTO offeringDTO){
         OfferingEntity offeringEntity = new OfferingEntity();
-        OfferingId offeringId = new OfferingId();
-        offeringId.setOfficeId(offeringDTO.getOffice().getId());
-        offeringId.setProductId(offeringDTO.getProduct().getId());
-        offeringEntity.setOfferingId(offeringId);
         offeringEntity.setPrice(offeringDTO.getPrice());
+        offeringEntity.setOffice(officeService.toOfficeEntity(offeringDTO.getOffice()));
+        offeringEntity.setProduct(productService.toProductEntity(offeringDTO.getProduct()));
         return offeringEntity;
     }
 }
