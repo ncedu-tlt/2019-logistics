@@ -22,7 +22,7 @@ public class OfficeEntity implements Serializable {
     @JoinColumn(name = "town_id", nullable = false)
     private TownEntity town;
 
-    @OneToMany(mappedBy = "officeEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OfferingEntity> offeringEntitySet = new HashSet<>();
 
     public Integer getId() {

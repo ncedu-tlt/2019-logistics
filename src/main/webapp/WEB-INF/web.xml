@@ -83,6 +83,27 @@
         <servlet-name>CreateOfficeServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.office.CreateOfficeServlet</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>OfferingDispatcher</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.dispatcher.OfferingDispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateOfferingServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.offering.CreateOfferingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteOfferingServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.offering.DeleteOfferingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOfferingServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.offering.EditOfferingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchOfferingsServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.offering.SearchOfferingsServlet</servlet-class>
+    </servlet>
 
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
@@ -162,6 +183,27 @@
     <servlet-mapping>
         <servlet-name>GetOfficeServlet</servlet-name>
         <url-pattern>/GetOfficeServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>OfferingDispatcher</servlet-name>
+        <url-pattern>/offerings/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateOfferingServlet</servlet-name>
+        <url-pattern>/CreateOfferingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteOfferingServlet</servlet-name>
+        <url-pattern>/DeleteOfferingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOfferingServlet</servlet-name>
+        <url-pattern>/EditOfferingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchOfferingsServlet</servlet-name>
+        <url-pattern>/SearchOfferingsServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

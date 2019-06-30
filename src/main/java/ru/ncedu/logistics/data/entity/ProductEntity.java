@@ -20,7 +20,7 @@ public class ProductEntity implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OfferingEntity> offeringEntitySet = new HashSet<>();
 
     public Integer getId() {

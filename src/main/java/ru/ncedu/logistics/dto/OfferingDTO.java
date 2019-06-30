@@ -3,24 +3,24 @@ package ru.ncedu.logistics.dto;
 
 public class OfferingDTO {
 
-    private OfficeDTO officeDTO;
-    private ProductDTO productDTO;
+    private OfficeDTO office;
+    private ProductDTO product;
     private Double price;
 
-    public OfficeDTO getOfficeDTO() {
-        return officeDTO;
+    public OfficeDTO getOffice() {
+        return office;
     }
 
-    public void setOfficeDTO(OfficeDTO officeDTO) {
-        this.officeDTO = officeDTO;
+    public void setOffice(OfficeDTO office) {
+        this.office = office;
     }
 
-    public ProductDTO getProductDTO() {
-        return productDTO;
+    public ProductDTO getProduct() {
+        return product;
     }
 
-    public void setProductDTO(ProductDTO productDTO) {
-        this.productDTO = productDTO;
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 
     public Double getPrice() {

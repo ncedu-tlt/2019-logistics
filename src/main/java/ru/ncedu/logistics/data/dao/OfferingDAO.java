@@ -17,4 +17,9 @@ public class OfferingDAO extends LogisticsDAO<OfferingEntity, OfferingId> {
         return this.entityManager.createQuery("FROM " + OfferingEntity.class +
                                             " offering WHERE offering.offeringId.officeId = " + officeId).getResultList();
     }
+
+    public List<OfferingEntity> findByProductId(int productId){
+        return this.entityManager.createQuery("FROM " + OfferingEntity.class +
+                " offering WHERE offering.offeringId.productId = " + productId).getResultList();
+    }
 }

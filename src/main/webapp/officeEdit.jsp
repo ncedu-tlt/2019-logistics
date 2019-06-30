@@ -26,6 +26,10 @@
             </form>
         </c:when>
         <c:otherwise>
+            <form method="GET" action="/offerings/create">
+                <input type="hidden" name="officeId" value="${office.getId()}">
+                <input type="submit" value="Create new offering">
+            </form>
             <form method="POST" action="${action}">
                 <label for="phone">Phone number</label>
                 <input id="phone" type="text" pattern="\d{6}" name="phoneNumber" value="${office.getPhone()}"><br>

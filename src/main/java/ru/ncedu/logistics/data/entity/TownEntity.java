@@ -3,6 +3,7 @@ package ru.ncedu.logistics.data.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "towns")
@@ -17,6 +18,9 @@ public class TownEntity implements Serializable {
     @NotNull
     @Column(name = "name")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RoadEntity> roadEntitySet;
 
     public Integer getId() {
         return id;

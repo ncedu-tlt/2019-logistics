@@ -13,13 +13,9 @@ public class OfferingEntity implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "office_id", insertable = false, updatable = false)
-    private OfficeEntity officeEntity;
+    private OfficeEntity office;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
-    private ProductEntity productEntity;
+    private ProductEntity product;
 
     public OfferingId getOfferingId() {
         return offeringId;
@@ -37,11 +33,23 @@ public class OfferingEntity implements Serializable {
         this.price = price;
     }
 
-    public OfficeEntity getOfficeEntity() {
-        return officeEntity;
+    @ManyToOne
+    @JoinColumn(name = "office_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public OfficeEntity getOffice() {
+        return office;
     }
 
-    public ProductEntity getProductEntity() {
-        return productEntity;
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setOffice(OfficeEntity office) {
+        this.office = office;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 }

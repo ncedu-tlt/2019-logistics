@@ -23,7 +23,8 @@ public class OfferingService {
     public OfferingDTO create(OfferingDTO offeringDTO){
         OfferingEntity offeringEntity = toOfferingEntity(offeringDTO);
         offeringDAO.create(offeringEntity);
-        return toOfferingDTO(offeringEntity);
+        OfferingEntity offeringEntity1 = offeringDAO.findById(offeringEntity.getOfferingId());
+        return toOfferingDTO(offeringEntity1);
     }
 
     public OfferingDTO update(OfferingDTO offeringDTO){
@@ -41,10 +42,18 @@ public class OfferingService {
         return offeringDAO.findByOfficeId(officeId).stream().map(this::toOfferingDTO).collect(Collectors.toList());
     }
 
+    public List<OfferingDTO> findByProductId(int productId){
+        return offeringDAO.findByProductId(productId).stream().map(this::toOfferingDTO).collect(Collectors.toList());
+    }
+
+    public OfferingDTO findById(OfferingId offeringId){
+        return toOfferingDTO(offeringDAO.findById(offeringId));
+    }
+
     public OfferingDTO toOfferingDTO(OfferingEntity offeringEntity){
         OfferingDTO offeringDTO = new OfferingDTO();
-        offeringDTO.setOfficeDTO(officeService.toOfficeDTO(offeringEntity.getOfficeEntity()));
-        offeringDTO.setProductDTO(productService.toProductDTO(offeringEntity.getProductEntity()));
+        offeringDTO.setOffice(officeService.toOfficeDTO(offeringEntity.getOffice()));
+        offeringDTO.setProduct(productService.toProductDTO(offeringEntity.getProduct()));
         offeringDTO.setPrice(offeringEntity.getPrice());
         return offeringDTO;
     }
@@ -52,8 +61,8 @@ public class OfferingService {
     public OfferingEntity toOfferingEntity(OfferingDTO offeringDTO){
         OfferingEntity offeringEntity = new OfferingEntity();
         OfferingId offeringId = new OfferingId();
-        offeringId.setOfficeId(offeringDTO.getOfficeDTO().getId());
-        offeringId.setProductId(offeringDTO.getProductDTO().getId());
+        offeringId.setOfficeId(offeringDTO.getOffice().getId());
+        offeringId.setProductId(offeringDTO.getProduct().getId());
         offeringEntity.setOfferingId(offeringId);
         offeringEntity.setPrice(offeringDTO.getPrice());
         return offeringEntity;
