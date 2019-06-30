@@ -5,8 +5,8 @@
     <title>Offices</title>
 </head>
 <body>
-    <h2>List of offices</h2>
     <a href="/">Back to homepage</a>
+    <h2>List of offices</h2>
     <label>Town: ${townName}</label>
     <p></p>
     <form method="GET" action="/CreateOfficeServlet">

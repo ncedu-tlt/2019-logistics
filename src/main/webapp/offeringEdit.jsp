@@ -5,11 +5,11 @@
     <title>Offering editor</title>
 </head>
 <body>
-    <h2>Offering editor</h2>
     <a href="/">Back to homepage</a>
+    <h2>Offering editor</h2>
     <p></p>
     <c:if test="${isRO.equals('false') and isCreated.equals('false')}">
-        <form method="GET" action="/offerings/${offering.getOffice().getId()}/${offering.getProduct().getId()}/delete">
+        <form method="POST" action="/offerings/${offering.getOffice().getId()}/${offering.getProduct().getId()}/delete">
             <input type="hidden" name="officeId" value="${offering.getOffice().getId()}">
             <input type="hidden" name="productId" value="${offering.getProduct().getId()}">
             <input type="submit" value="Delete">
@@ -18,15 +18,13 @@
 
     <c:choose>
         <c:when test="${isRO.equals('true')}">
-            <form method="POST" action="${action}">
+            <form method="POST" action="/offerings/${offering.getOffice().getId()}/${offering.getProduct().getId()}/edit">
                 <label for="productId">Product name</label>
                 <select id="productId" name="productId">
                     <option selected value="${offering.getProduct().getId()}">${offering.getProduct().getName()}</option>
                 </select><br>
                 <label for="price">Price</label>
                 <input id="price" type="text" pattern="\d" name="price" value="${offering.getPrice()}" readonly><br>
-                <input type="hidden" name="officeId" value="${offering.getOffice().getId()}">
-                <input type="hidden" name="productId" value="${offering.getProduct().getId()}">
                 <input type="submit" value="Edit">
             </form>
         </c:when>

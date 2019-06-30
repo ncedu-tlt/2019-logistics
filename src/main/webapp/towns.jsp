@@ -4,8 +4,8 @@
 <head>
     <title>Towns</title>
 </head>
-<a href="/">Back to homepage</a>
 <body>
+    <a href="/">Back to homepage</a>
     <h2>List of towns</h2>
     <form method="GET" action="/CreateTownServlet">
         <input type="submit" value="Create new town">

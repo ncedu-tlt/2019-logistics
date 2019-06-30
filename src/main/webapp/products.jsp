@@ -4,8 +4,8 @@
 <head>
     <title>Products</title>
 </head>
-<a href="/">Back to homepage</a>
 <body>
+    <a href="/">Back to homepage</a>
     <h2>List of products</h2>
     <form method="GET" action="/CreateProductServlet">
         <input type="submit" value="Create new product">

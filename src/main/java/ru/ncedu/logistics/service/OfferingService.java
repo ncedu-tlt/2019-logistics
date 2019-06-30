@@ -38,6 +38,10 @@ public class OfferingService {
         offeringDAO.delete(offeringEntity);
     }
 
+    public void deleteById(OfferingId offeringId){
+        offeringDAO.deleteById(offeringId);
+    }
+
     public List<OfferingDTO> findByOfficeId(int officeId){
         return offeringDAO.findByOfficeId(officeId).stream().map(this::toOfferingDTO).collect(Collectors.toList());
     }

@@ -5,8 +5,8 @@
     <title>Office editor</title>
 </head>
 <body>
-    <h2>Office editor</h2>
     <a href="/">Back to homepage</a>
+    <h2>Office editor</h2>
     <p></p>
     <c:if test="${isRO.equals('false') and isCreated.equals('false')}">
        <form method="POST" action="/offices/${office.getId()}/delete">

@@ -5,6 +5,8 @@
     <title>Product editor</title>
 </head>
 <body>
+    <a href="/">Back to homepage</a>
+    <h2>Product editor</h2>
     <a href="/products">Products</a>
     <label> ${product.getName()}</label>
     <p></p>

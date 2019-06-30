@@ -5,17 +5,19 @@
     <title>Town editor</title>
 </head>
 <body>
+    <a href="/">Back to homepage</a>
+    <h2>Town editor</h2>
     <a href="/towns">Towns</a>
     <label> ${town.getName()}</label>
     <p></p>
+    <form method="GET" action="/towns/${town.getId()}/offices">
+        <input type="hidden" name="townId" value="${town.getId()}">
+        <input type="submit" value="Offices">
+    </form>
     <c:if test="${isRO.equals('false') and isCreated.equals('false')}">
         <form method="POST" action="/towns/${town.getId()}/delete">
             <input type="hidden" name="townId" value="${town.getId()}">
             <input type="submit" value="Delete">
-        </form>
-        <form method="GET" action="/towns/${town.getId()}/offices">
-            <input type="hidden" name="townId" value="${town.getId()}">
-            <input type="submit" value="Offices">
         </form>
     </c:if>
     <c:choose>
