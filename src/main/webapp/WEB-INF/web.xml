@@ -104,6 +104,11 @@
         <servlet-name>SearchOfferingsServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.offering.SearchOfferingsServlet</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>GetOfficeJson</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.office.GetOfficeJson</servlet-class>
+    </servlet>
 
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
@@ -204,6 +209,11 @@
     <servlet-mapping>
         <servlet-name>SearchOfferingsServlet</servlet-name>
         <url-pattern>/SearchOfferingsServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>GetOfficeJson</servlet-name>
+        <url-pattern>/GetOfficeJson</url-pattern>
     </servlet-mapping>
 
     <error-page>

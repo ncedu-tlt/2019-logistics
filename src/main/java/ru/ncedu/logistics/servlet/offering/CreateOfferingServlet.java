@@ -28,6 +28,7 @@ public class CreateOfferingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         int officeId = Integer.parseInt(req.getParameter("officeId"));
         List<ProductDTO> productsList = productService.findAll();
 
@@ -42,6 +43,7 @@ public class CreateOfferingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         int officeId = Integer.parseInt(req.getParameter("officeId"));
         int productId = Integer.parseInt(req.getParameter("productId"));
         double price = Double.parseDouble(req.getParameter("price"));

@@ -29,7 +29,6 @@ public class EditOfferingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         int officeId = Integer.parseInt((String) req.getAttribute("officeId"));
         int productId = Integer.parseInt((String) req.getAttribute("productId"));
         OfferingId offeringId = new OfferingId();

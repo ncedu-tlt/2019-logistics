@@ -38,6 +38,10 @@ public class OfficeService {
         officeDAO.deleteById(officeId);
     }
 
+    public List<OfficeDTO> findAll(){
+        return officeDAO.findAll().stream().map(this::toOfficeDTO).collect(Collectors.toList());
+    }
+
     public List<OfficeDTO> findByTownId(int townId){
         return officeDAO.findByTownId(townId).stream().map(this::toOfficeDTO).collect(Collectors.toList());
     }

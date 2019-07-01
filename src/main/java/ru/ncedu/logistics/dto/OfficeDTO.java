@@ -1,9 +1,16 @@
 package ru.ncedu.logistics.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import ru.ncedu.logistics.service.JsonViews;
+
 public class OfficeDTO {
 
+    @JsonView(JsonViews.Flat.class)
     private Integer id;
+
+    @JsonView(JsonViews.Flat.class)
     private Integer phone;
+
     private TownDTO town;
 
     public Integer getId() {

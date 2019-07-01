@@ -17,6 +17,7 @@ public class DeleteOfferingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         int officeId = Integer.parseInt(req.getParameter("officeId"));
         int productId = Integer.parseInt(req.getParameter("productId"));
         OfferingId offeringId = new OfferingId();
