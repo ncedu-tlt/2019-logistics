@@ -19,14 +19,28 @@
         <select id="productSelect" name="productId">
             <option selected disabled>Select product</option>
             <c:forEach items="${products}" var="product">
-                <option value="${product.id}">${product.getName()}</option>
+                <c:choose>
+                    <c:when test="${prodIdServ == product.id}">
+                        <option selected value="${product.id}">${product.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${product.id}">${product.name}</option>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </select>
         <p></p>
         <select class="jsTownSelect" name="townId">
             <option selected disabled>Select town</option>
             <c:forEach items="${towns}" var="town">
-                <option value="${town.id}">${town.name}</option>
+                <c:choose>
+                    <c:when test="${townIdServ == town.id}">
+                        <option selected value="${town.id}">${town.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${town.id}">${town.name}</option>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </select>
 
@@ -34,6 +48,30 @@
         </select><br><br>
 
         <input type="submit" value="Search">
+
+        <c:if test="${isGet.equals('true')}">
+            <table border="1">
+                <theadx>
+                    <tr>
+                        <th>Town name</th>
+                        <th>Office phone</th>
+                        <th>Product name</th>
+                        <th>Price</th>
+                    </tr>
+                </theadx>
+                <tbody>
+                    <c:forEach items="${offers}" var="offer">
+                        <tr>
+                            <td>${offer.office.town.name}</td>
+                            <td>${offer.office.phone}</td>
+                            <td>${offer.product.name}</td>
+                            <td>${offer.price}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
+
     </form>
 
 

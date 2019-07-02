@@ -12,10 +12,10 @@ import java.util.Map;
 public class OfferingDAO extends LogisticsDAO<OfferingEntity, OfferingId> {
 
     private final static String FIND_BY_OFFICE_ID =
-            "FROM " + OfferingEntity.class + " offering WHERE offering.offeringId.officeId = :officeId";
+            "FROM " + OfferingEntity.class.getName() + " offering WHERE offering.office.id = :officeId";
 
     private final static String FIND_BY_PRODUCT_ID =
-            "FROM " + OfferingEntity.class + " offering WHERE offering.offeringId.productId = :productId";
+            "FROM " + OfferingEntity.class.getName() + " offering WHERE offering.product.id = :productId";
 
     public OfferingDAO(){
         init(OfferingEntity.class);
