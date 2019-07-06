@@ -16,5 +16,8 @@
     <p>Today is <%= getFormattedDate()%></p>
     <a href="/towns">Towns table</a><br>
     <a href="/products">Products table</a><br>
+    <a href="/offerings/search">Search offerings</a><br>
+    <a href="/roads/search">Search roads</a><br>
+    <a href="/logistic">Search the cheapeast offering</a>
   </body>
 </html>

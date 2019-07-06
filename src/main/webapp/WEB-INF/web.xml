@@ -109,7 +109,33 @@
         <servlet-name>GetOfficeJson</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.office.GetOfficeJson</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>RoadDispatcher</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.dispatcher.RoadDispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchRoadsServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.road.SearchRoadsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateRoadServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.road.CreateRoadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditRoadServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.road.EditRoadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRoadServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.road.DeleteRoadServlet</servlet-class>
+    </servlet>
 
+    <servlet>
+        <servlet-name>LogisticsServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.product.LogisticsServlet</servlet-class>
+    </servlet>
+    
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
         <url-pattern>*</url-pattern>
@@ -214,6 +240,32 @@
     <servlet-mapping>
         <servlet-name>GetOfficeJson</servlet-name>
         <url-pattern>/GetOfficeJson</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>RoadDispatcher</servlet-name>
+        <url-pattern>/roads/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchRoadsServlet</servlet-name>
+        <url-pattern>/SearchRoadsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateRoadServlet</servlet-name>
+        <url-pattern>/CreateRoadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRoadServlet</servlet-name>
+        <url-pattern>/EditRoadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRoadServlet</servlet-name>
+        <url-pattern>/DeleteRoadServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LogisticsServlet</servlet-name>
+        <url-pattern>/logistic</url-pattern>
     </servlet-mapping>
 
     <error-page>

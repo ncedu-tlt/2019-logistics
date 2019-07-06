@@ -37,8 +37,24 @@ public class RoadService {
         roadDAO.delete(roadEntity);
     }
 
+    public void delete(RoadId roadId){
+        roadDAO.deleteById(roadId);
+    }
+
+    public RoadDTO findById(RoadId roadId){
+        return toRoadDTO(roadDAO.findById(roadId));
+    }
+
     public List<RoadDTO> findByTownId(int townId){
         return roadDAO.findByTownId(townId).stream().map(this::toRoadDTO).collect(Collectors.toList());
+    }
+
+    public boolean existsById(RoadId roadId){
+        return roadDAO.existsById(roadId);
+    }
+
+    public boolean existsByTownId(int townId){
+        return roadDAO.existsByTownId(townId);
     }
 
     public RoadDTO toRoadDTO(RoadEntity roadEntity){

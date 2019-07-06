@@ -48,16 +48,20 @@ public class CreateOfferingServlet extends HttpServlet {
         int productId = Integer.parseInt(req.getParameter("productId"));
         double price = Double.parseDouble(req.getParameter("price"));
 
-        OfferingDTO offering = new OfferingDTO();
-        OfficeDTO office = officeService.findById(officeId);
-        ProductDTO product = productService.findById(productId);
+        if(offeringService.existsById(productId, officeId)){
+            resp.sendRedirect("/offerings/" + officeId + "/" + productId + "/edit");
+        } else {
+            OfferingDTO offering = new OfferingDTO();
+            OfficeDTO office = officeService.findById(officeId);
+            ProductDTO product = productService.findById(productId);
 
-        offering.setOffice(office);
-        offering.setProduct(product);
-        offering.setPrice(price);
+            offering.setOffice(office);
+            offering.setProduct(product);
+            offering.setPrice(price);
 
-        offering = offeringService.create(offering);
+            offeringService.create(offering);
 
-        resp.sendRedirect("/");
+            resp.sendRedirect("/offerings/" + officeId + "/" + productId + "/edit");
+        }
     }
 }

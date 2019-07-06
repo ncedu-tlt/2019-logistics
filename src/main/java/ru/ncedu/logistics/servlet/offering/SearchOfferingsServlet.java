@@ -43,7 +43,7 @@ public class SearchOfferingsServlet extends HttpServlet {
         req.setAttribute("towns", towns);
         req.setAttribute("products", products);
 
-        req.getRequestDispatcher("/offering.jsp").forward(req, resp);
+        req.getRequestDispatcher("/offerings.jsp").forward(req, resp);
     }
 
     @Override
@@ -71,14 +71,20 @@ public class SearchOfferingsServlet extends HttpServlet {
                 List<OfferingDTO> offers = new LinkedList<>();
                 offers.add(singleOffer);
 
-                req.setAttribute("offers", offers);
+                if(offers == null){
+                    req.setAttribute("isExist", "false");
+                } else {
+                    req.setAttribute("isExist", "true");
+                    req.setAttribute("offers", offers);
+                }
+
                 req.setAttribute("isGet", "true");
                 req.setAttribute("prodIdServ", productId);
                 req.setAttribute("townIdServ", townId);
                 req.setAttribute("towns", towns);
                 req.setAttribute("products", products);
 
-                req.getRequestDispatcher("/offering.jsp").forward(req, resp);
+                req.getRequestDispatcher("/offerings.jsp").forward(req, resp);
 
             } else {
                 //User sent only productId
@@ -89,13 +95,19 @@ public class SearchOfferingsServlet extends HttpServlet {
 
                 List<OfferingDTO> offers = offeringService.findByProductId(productId);
 
-                req.setAttribute("offers", offers);
+                if(offers == null){
+                    req.setAttribute("isExist", "false");
+                } else {
+                    req.setAttribute("isExist", "true");
+                    req.setAttribute("offers", offers);
+                }
+
                 req.setAttribute("isGet", "true");
                 req.setAttribute("prodIdServ", productId);
                 req.setAttribute("towns", towns);
                 req.setAttribute("products", products);
 
-                req.getRequestDispatcher("/offering.jsp").forward(req, resp);
+                req.getRequestDispatcher("/offerings.jsp").forward(req, resp);
 
             }
         } else {
@@ -108,13 +120,19 @@ public class SearchOfferingsServlet extends HttpServlet {
 
             List<OfferingDTO> offers = offeringService.findByOfficeId(officeId);
 
-            req.setAttribute("offers", offers);
+            if(offers == null){
+                req.setAttribute("isExist", "false");
+            } else {
+                req.setAttribute("isExist", "true");
+                req.setAttribute("offers", offers);
+            }
+
             req.setAttribute("isGet", "true");
             req.setAttribute("townIdServ", townId);
             req.setAttribute("towns", towns);
             req.setAttribute("products", products);
 
-            req.getRequestDispatcher("/offering.jsp").forward(req, resp);
+            req.getRequestDispatcher("/offerings.jsp").forward(req, resp);
         }
     }
 }

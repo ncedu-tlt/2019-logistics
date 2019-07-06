@@ -45,6 +45,18 @@ public class ProductService {
         return toProductDTO(productDAO.findById(productId));
     }
 
+    public ProductDTO findByName(String name){
+        return toProductDTO(productDAO.findByName(name));
+    }
+
+    public boolean existsByName(String name){
+        return productDAO.existsByName(name);
+    }
+
+    public boolean existsById(int id){
+        return productDAO.existsById(id);
+    }
+
     public ProductEntity toProductEntity(ProductDTO productDTO){
         ProductEntity productEntity = new ProductEntity();
         productEntity.setId(productDTO.getId());

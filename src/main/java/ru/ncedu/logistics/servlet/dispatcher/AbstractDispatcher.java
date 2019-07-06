@@ -37,6 +37,5 @@ public abstract class AbstractDispatcher extends HttpServlet {
         }
 
         resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-//        throw new ServletException("Dispatcher could not recognize " + url);
     }
 }

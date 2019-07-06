@@ -63,7 +63,11 @@ public class EditOfferingServlet extends HttpServlet {
         offering.setProduct(product);
         offering.setPrice(price);
 
-        offering = offeringService.update(offering);
+        if(offeringService.existsById(productId, officeId)){
+            offering = offeringService.update(offering);
+        } else {
+            offeringService.create(offering);
+        }
 
         req.setAttribute("officeId", officeId);
         req.setAttribute("productId", productId);

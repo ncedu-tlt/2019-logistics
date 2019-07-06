@@ -54,6 +54,18 @@ public class OfferingService {
         return toOfferingDTO(offeringDAO.findById(offeringId));
     }
 
+    public OfferingDTO findMinOffer(int townId, int productId){
+        return toOfferingDTO(offeringDAO.findMinOffer(townId, productId));
+    }
+
+    public boolean existsById(int productId, int officeId){
+        return offeringDAO.existsById(productId, officeId);
+    }
+
+    public boolean existsMinOffer(int townId, int productId){
+        return offeringDAO.existsMinOffer(townId, productId);
+    }
+
     public OfferingDTO toOfferingDTO(OfferingEntity offeringEntity){
         OfferingDTO offeringDTO = new OfferingDTO();
         offeringDTO.setOffice(officeService.toOfficeDTO(offeringEntity.getOffice()));

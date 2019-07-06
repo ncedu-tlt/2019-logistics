@@ -23,9 +23,11 @@ public class CreateOfficeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int townId = Integer.parseInt(req.getParameter("townId"));
         List<TownDTO> townsList = townService.findAll();
 
         req.setAttribute("action", "/CreateOfficeServlet");
+        req.setAttribute("townId", townId);
         req.setAttribute("townsList", townsList);
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "true");
@@ -38,19 +40,28 @@ public class CreateOfficeServlet extends HttpServlet {
         int townId = Integer.parseInt(req.getParameter("townId"));
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
 
-        TownDTO townDTO = new TownDTO();
-        townDTO.setId(townId);
+        if(officeService.existsByTownAndPhone(townId, phoneNumber)){
+            int id = officeService.findByTownAndPhone(townId, phoneNumber).getId();
+            req.setAttribute("officeId", id);
+            req.setAttribute("isRO", "false");
+            req.setAttribute("isCreated", "false");
 
-        OfficeDTO officeDTO = new OfficeDTO();
-        officeDTO.setPhone(phoneNumber);
-        officeDTO.setTown(townDTO);
+            resp.sendRedirect("/offices/" + id + "/edit");
+        } else {
+            TownDTO townDTO = new TownDTO();
+            townDTO.setId(townId);
 
-        officeDTO = officeService.create(officeDTO);
+            OfficeDTO officeDTO = new OfficeDTO();
+            officeDTO.setPhone(phoneNumber);
+            officeDTO.setTown(townDTO);
 
-        req.setAttribute("officeId", officeDTO.getId());
-        req.setAttribute("isRO", "false");
-        req.setAttribute("isCreated", "false");
+            officeDTO = officeService.create(officeDTO);
 
-        resp.sendRedirect("/offices/" + officeDTO.getId() + "/edit");
+            req.setAttribute("officeId", officeDTO.getId());
+            req.setAttribute("isRO", "false");
+            req.setAttribute("isCreated", "false");
+
+            resp.sendRedirect("/offices/" + officeDTO.getId() + "/edit");
+        }
     }
 }

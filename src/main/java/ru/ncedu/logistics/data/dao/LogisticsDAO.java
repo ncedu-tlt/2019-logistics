@@ -8,7 +8,7 @@ import java.util.Map;
 public abstract class LogisticsDAO<T extends Serializable, PK extends Serializable> {
 
     @PersistenceUnit(unitName = "logistics")
-    private EntityManagerFactory entityManagerFactory;
+    protected EntityManagerFactory entityManagerFactory;
 
     private Class<T> cl;
 

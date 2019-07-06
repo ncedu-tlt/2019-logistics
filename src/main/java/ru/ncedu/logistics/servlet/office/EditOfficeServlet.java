@@ -63,9 +63,9 @@ public class EditOfficeServlet extends HttpServlet {
         officeDTO = officeService.update(officeDTO);
         List<TownDTO> townsList = townService.findAll();
 
-//        req.setAttribute("action", "/EditOfficeServlet");
-//        req.setAttribute("townsList", townsList);
-//        req.setAttribute("office", officeDTO);
+        req.setAttribute("action", "/EditOfficeServlet");
+        req.setAttribute("townsList", townsList);
+        req.setAttribute("office", officeDTO);
         req.setAttribute("officeId", officeDTO.getId());
 
         resp.sendRedirect("/offices/" + officeDTO.getId() + "/edit");

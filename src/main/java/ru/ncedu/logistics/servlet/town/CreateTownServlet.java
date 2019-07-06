@@ -29,12 +29,19 @@ public class CreateTownServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String townName = req.getParameter("townName");
 
-        TownDTO townDTO = new TownDTO();
-        townDTO.setName(townName);
+        if(townService.existsByName(townName)){
+            int townId = townService.findByName(townName).getId();
+            req.setAttribute("townId", townId);
+            resp.sendRedirect("/towns/" + townId + "/edit");
+        } else {
+            TownDTO townDTO = new TownDTO();
+            townDTO.setName(townName);
 
-        townDTO = townService.create(townDTO);
+            townDTO = townService.create(townDTO);
 
-        req.setAttribute("townId", townDTO.getId());
-        resp.sendRedirect("/towns/" + townDTO.getId() + "/edit");
+            req.setAttribute("townId", townDTO.getId());
+            resp.sendRedirect("/towns/" + townDTO.getId() + "/edit");
+        }
+
     }
 }

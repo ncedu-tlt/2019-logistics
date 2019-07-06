@@ -14,11 +14,13 @@ public class OfferingEntity implements Serializable {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "office_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @MapsId("officeId")
+    @JoinColumn(name = "office_id")
     private OfficeEntity office;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
     private ProductEntity product;
 
     public OfferingId getOfferingId() {

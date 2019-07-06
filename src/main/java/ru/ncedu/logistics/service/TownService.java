@@ -48,6 +48,14 @@ public class TownService {
         return toTownDTO(townDAO.findByName(name));
     }
 
+    public boolean existsByName(String name){
+        return townDAO.existsByName(name);
+    }
+
+    public boolean existsById(int id){
+        return townDAO.existById(id);
+    }
+
     public TownDTO toTownDTO(TownEntity townEntity) {
         TownDTO townDTO = new TownDTO();
         townDTO.setId(townEntity.getId());

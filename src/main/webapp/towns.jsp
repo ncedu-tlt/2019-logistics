@@ -19,7 +19,7 @@
         <tbody>
             <c:forEach items="${townsList}" var="town">
                 <tr>
-                    <td><a href="/towns/${town.getId()}">${town.getName()}</a></td>
+                    <td><a href="/towns/${town.id}">${town.name}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

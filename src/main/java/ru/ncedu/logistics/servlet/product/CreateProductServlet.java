@@ -29,12 +29,18 @@ public class CreateProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String townName = req.getParameter("productName");
 
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(townName);
+        if(productService.existsByName(townName)){
+            int id = productService.findByName(townName).getId();
+            req.setAttribute("productId", id);
+            resp.sendRedirect("/products/" + id + "/edit");
+        } else {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setName(townName);
 
-        productDTO = productService.create(productDTO);
+            productDTO = productService.create(productDTO);
 
-        req.setAttribute("productId", productDTO.getId());
-        resp.sendRedirect("/products/" + productDTO.getId() + "/edit");
+            req.setAttribute("productId", productDTO.getId());
+            resp.sendRedirect("/products/" + productDTO.getId() + "/edit");
+        }
     }
 }

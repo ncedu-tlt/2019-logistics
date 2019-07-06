@@ -50,6 +50,18 @@ public class OfficeService {
         return toOfficeDTO(officeDAO.findById(officeId));
     }
 
+    public OfficeDTO findByTownAndPhone(int townId, int phone){
+        return toOfficeDTO(officeDAO.findByTownAndPhone(townId, phone));
+    }
+
+    public boolean existsByTownAndPhone(int townId, int phone){
+        return officeDAO.existsByTownAndPhone(townId, phone);
+    }
+
+    public boolean existsById(int id){
+        return officeDAO.existsById(id);
+    }
+
     public OfficeDTO toOfficeDTO(OfficeEntity officeEntity){
         OfficeDTO officeDTO = new OfficeDTO();
         officeDTO.setId(officeEntity.getId());

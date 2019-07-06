@@ -17,9 +17,7 @@ public class DeleteTownServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int townId = Integer.parseInt(req.getParameter("townId"));
-
         townService.deleteById(townId);
-
         resp.sendRedirect("/towns");
     }
 }

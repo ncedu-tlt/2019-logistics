@@ -47,29 +47,37 @@
         <select class="jsOfficeSelect" id="officeSelect" name="officeId" style="display: none; margin-left: 30px">
         </select><br><br>
 
-        <input type="submit" value="Search">
+        <input type="submit" value="Search"><br><br>
 
         <c:if test="${isGet.equals('true')}">
-            <table border="1">
-                <theadx>
-                    <tr>
-                        <th>Town name</th>
-                        <th>Office phone</th>
-                        <th>Product name</th>
-                        <th>Price</th>
-                    </tr>
-                </theadx>
-                <tbody>
-                    <c:forEach items="${offers}" var="offer">
-                        <tr>
-                            <td>${offer.office.town.name}</td>
-                            <td>${offer.office.phone}</td>
-                            <td>${offer.product.name}</td>
-                            <td>${offer.price}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+            <c:choose>
+                <c:when test="${isExist.equals('true')}">
+                    <label style="font-size: 90%"><i>click on town for editing offering</i></label>
+                    <table border="1">
+                        <theadx>
+                            <tr>
+                                <th>Town name</th>
+                                <th>Office phone</th>
+                                <th>Product name</th>
+                                <th>Price</th>
+                            </tr>
+                        </theadx>
+                        <tbody>
+                        <c:forEach items="${offers}" var="offer">
+                            <tr>
+                                <td><a href="/offerings/${offer.office.id}/${offer.product.id}/edit">${offer.office.town.name}</a></td>
+                                <td>${offer.office.phone}</td>
+                                <td>${offer.product.name}</td>
+                                <td>${offer.price}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>There are no offerings</p>
+                </c:otherwise>
+            </c:choose>
         </c:if>
 
     </form>
