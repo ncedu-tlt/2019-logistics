@@ -14,11 +14,11 @@
         <input type="submit" value="Create new office">
     </form>
     <table border="1">
-        <theadx>
+        <thead>
             <tr>
                 <th>Office phone</th>
             </tr>
-        </theadx>
+        </thead>
         <tbody>
             <c:forEach items="${officesById}" var="office">
                 <tr>

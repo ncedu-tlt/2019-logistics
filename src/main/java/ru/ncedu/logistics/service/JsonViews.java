@@ -1,7 +1,7 @@
 package ru.ncedu.logistics.service;
 
-public class JsonViews {
-    public static class Flat {
+public interface JsonViews {
+    public static interface Flat {
 
     }
 }

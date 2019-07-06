@@ -42,7 +42,7 @@
     </c:if>
 
     <c:if test="${isGet.equals('false')}">
-        <label>Sorry, there is no possibility to deliver the product.</label>
+        <label>No offerings found</label>
     </c:if>
 </body>
 </html>

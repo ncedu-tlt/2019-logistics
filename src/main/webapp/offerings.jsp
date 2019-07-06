@@ -54,14 +54,14 @@
                 <c:when test="${isExist.equals('true')}">
                     <label style="font-size: 90%"><i>click on town for editing offering</i></label>
                     <table border="1">
-                        <theadx>
+                        <thead>
                             <tr>
                                 <th>Town name</th>
                                 <th>Office phone</th>
                                 <th>Product name</th>
                                 <th>Price</th>
                             </tr>
-                        </theadx>
+                        </thead>
                         <tbody>
                         <c:forEach items="${offers}" var="offer">
                             <tr>

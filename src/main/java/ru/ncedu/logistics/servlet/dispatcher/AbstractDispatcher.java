@@ -5,12 +5,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractDispatcher extends HttpServlet {
 
-    protected Map<UrlParser, String> parsers = new HashMap<>();
+    private final Map<UrlParser, String> PARSERS;
+
+    public AbstractDispatcher(Map<UrlParser, String> parsers){
+        this.PARSERS = parsers;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,7 +29,7 @@ public abstract class AbstractDispatcher extends HttpServlet {
     public void dispatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String url = req.getRequestURL().toString();
 
-        for(Map.Entry<UrlParser, String> parser: parsers.entrySet()) {
+        for(Map.Entry<UrlParser, String> parser: PARSERS.entrySet()) {
             if(parser.getKey().matches(url)) {
                 Map<String, String> attrs = parser.getKey().parse(url);
                 for (Map.Entry<String, String> attr: attrs.entrySet()) {

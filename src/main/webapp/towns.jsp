@@ -11,11 +11,11 @@
         <input type="submit" value="Create new town">
     </form>
     <table border="1">
-        <theadx>
+        <thead>
             <tr>
                 <th>Name</th>
             </tr>
-        </theadx>
+        </thead>
         <tbody>
             <c:forEach items="${townsList}" var="town">
                 <tr>

@@ -11,11 +11,11 @@
         <input type="submit" value="Create new product">
     </form>
     <table border="1">
-        <theadx>
+        <thead>
             <tr>
                 <th>Name</th>
             </tr>
-        </theadx>
+        </thead>
         <tbody>
             <c:forEach items="${productList}" var="product">
                 <tr>
