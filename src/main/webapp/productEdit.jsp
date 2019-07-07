@@ -29,7 +29,7 @@
             <form method="POST" action="${action}">
                 <label for="productName">Product name: </label>
                 <input id="productName" type="text" name="productName" pattern="[a-zA-Z]{,25}" value="${product.name}"><br>
-                <input type="hidden" name="productName" value="${product.id}">
+                <input type="hidden" name="productId" value="${product.id}">
                 <input type="submit" value="Save">
             </form>
         </c:otherwise>

@@ -7,7 +7,7 @@
 <body>
     <a href="/">Back to homepage</a>
     <h2>List of products</h2>
-    <form method="GET" action="/CreateProductServlet">
+    <form method="GET" action="/products/create">
         <input type="submit" value="Create new product">
     </form>
     <table border="1">

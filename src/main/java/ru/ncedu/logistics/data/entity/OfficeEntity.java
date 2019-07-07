@@ -23,7 +23,7 @@ public class OfficeEntity implements Serializable {
     private TownEntity town;
 
     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OfferingEntity> offeringEntitySet = new HashSet<>();
+    private Set<OfferingEntity> offeringEntitySet;
 
     public Integer getId() {
         return id;

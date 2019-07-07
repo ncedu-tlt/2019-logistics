@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Result</title>
 </head>
 <body>
     <a href="/">Back to homepage</a><br>
@@ -19,6 +19,7 @@
             <label>Product price: ${minOffer.price}</label><br>
             <label>Total price: ${totalPrice}</label><br><br>
 
+            <c:if test="${not yourTown.equals(minTown.name)}">
             <label style="font-size: 90%"><i>List of roads to your town</i></label>
             <table border="1">
                 <thead>
@@ -38,6 +39,7 @@
                 </c:forEach>
                 </tbody>
             </table>
+            </c:if>
         </form>
     </c:if>
 

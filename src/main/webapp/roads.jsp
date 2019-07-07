@@ -14,7 +14,7 @@
     <a href="/">Back to homepage</a>
     <h2>Search roads</h2>
 
-    <form method="POST" action="/roads/create">
+    <form method="GET" action="/roads/create">
         <input type="submit" value="Create new road">
     </form>
 

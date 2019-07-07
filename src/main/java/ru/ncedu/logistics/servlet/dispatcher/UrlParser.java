@@ -14,8 +14,10 @@ public class UrlParser {
 
     private Pattern pattern;
     private Map<Integer, String> groups = new HashMap<>();
+    private String url;
 
     public UrlParser(String path) {
+        url = path;
         Matcher matcher = VARIABLE_PATTERN.matcher(path);
         for(int groupNumber = 1; matcher.find(); ++groupNumber) {
             groups.put(groupNumber, matcher.group(1));
@@ -32,6 +34,10 @@ public class UrlParser {
         } else {
             return false;
         }
+    }
+
+    public boolean urlEquals(String requestUrl){
+        return url.equals(requestUrl);
     }
 
     public Map<String, String> parse(String requestUrl) {

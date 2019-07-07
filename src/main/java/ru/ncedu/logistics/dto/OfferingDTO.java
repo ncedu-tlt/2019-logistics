@@ -30,4 +30,8 @@ public class OfferingDTO {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public void setPrice(int i) {
+        this.price = Double.valueOf(i);
+    }
 }

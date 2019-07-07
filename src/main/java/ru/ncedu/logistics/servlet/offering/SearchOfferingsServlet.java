@@ -66,12 +66,13 @@ public class SearchOfferingsServlet extends HttpServlet {
                 offeringId.setProductId(productId);
                 offeringId.setOfficeId(officeId);
 
-                OfferingDTO singleOffer = offeringService.findById(offeringId);
-
                 List<OfferingDTO> offers = new LinkedList<>();
-                offers.add(singleOffer);
+                if(offeringService.existsById(productId, officeId)) {
+                    OfferingDTO singleOffer = offeringService.findById(offeringId);
+                    offers.add(singleOffer);
+                }
 
-                if(offers == null){
+                if(offers.size() == 0){
                     req.setAttribute("isExist", "false");
                 } else {
                     req.setAttribute("isExist", "true");
@@ -95,7 +96,7 @@ public class SearchOfferingsServlet extends HttpServlet {
 
                 List<OfferingDTO> offers = offeringService.findByProductId(productId);
 
-                if(offers == null){
+                if(offers.size() == 0){
                     req.setAttribute("isExist", "false");
                 } else {
                     req.setAttribute("isExist", "true");

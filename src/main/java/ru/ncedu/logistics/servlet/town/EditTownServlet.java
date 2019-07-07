@@ -28,7 +28,7 @@ public class EditTownServlet extends HttpServlet {
 
         TownDTO town = townService.findById(townId);
 
-        req.setAttribute("action", "/EditTownServlet");
+        req.setAttribute("action", "/towns/" + townId + "/edit");
         req.setAttribute("town", town);
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "false");
@@ -49,7 +49,7 @@ public class EditTownServlet extends HttpServlet {
         townDTO = townService.update(townDTO);
 
         req.setAttribute("town", townDTO);
-        req.setAttribute("action", "/EditTownServlet");
+        req.setAttribute("action", "/towns/" + townDTO.getId()   + "/edit");
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "false");
 

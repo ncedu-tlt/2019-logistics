@@ -135,6 +135,11 @@
         <servlet-name>LogisticsServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.product.LogisticsServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>InitTestDataServlet</servlet-name>
+        <servlet-class>ru.ncedu.logistics.servlet.testdata.InitTestDataServlet</servlet-class>
+    </servlet>
     
     <filter-mapping>
         <filter-name>AccessLog</filter-name>
@@ -266,6 +271,11 @@
     <servlet-mapping>
         <servlet-name>LogisticsServlet</servlet-name>
         <url-pattern>/logistic</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>InitTestDataServlet</servlet-name>
+        <url-pattern>/init</url-pattern>
     </servlet-mapping>
 
     <error-page>

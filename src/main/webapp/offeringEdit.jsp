@@ -47,7 +47,7 @@
                     </c:forEach>
                 </select><br>
                 <label for="price">Price</label>
-                <input id="price" type="text" pattern="\d{2,10}.?\d{1,3}?" name="price" value="${offering.price}"><br>
+                <input id="price" type="text" pattern="\d{2,10}(\.\d{1,3})?" name="price" value="${offering.price}"><br>
                 <c:choose>
                     <c:when test="${isCreated.equals('true')}">
                         <input type="hidden" name="officeId" value="${officeId}">

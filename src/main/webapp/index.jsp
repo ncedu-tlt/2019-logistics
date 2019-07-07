@@ -18,6 +18,7 @@
     <a href="/products">Products table</a><br>
     <a href="/offerings/search">Search offerings</a><br>
     <a href="/roads/search">Search roads</a><br>
-    <a href="/logistic">Search the cheapeast offering</a>
+    <a href="/logistic">Search the cheapeast offering</a><br>
+    <a href="/init">Init test data</a>
   </body>
 </html>

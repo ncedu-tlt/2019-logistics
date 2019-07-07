@@ -18,7 +18,7 @@ public class CreateTownServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("action", "/CreateTownServlet");
+        req.setAttribute("action", "/roads/create");
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "true");
 

@@ -28,7 +28,7 @@ public class EditProductServlet extends HttpServlet {
 
         ProductDTO product = productService.findById(productId);
 
-        req.setAttribute("action", "/EditProductServlet");
+        req.setAttribute("action", "/products/" + productId + "/edit");
         req.setAttribute("product", product);
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "false");
@@ -49,7 +49,7 @@ public class EditProductServlet extends HttpServlet {
         productDTO = productService.update(productDTO);
 
         req.setAttribute("product", productDTO);
-        req.setAttribute("action", "/EditProductServlet");
+        req.setAttribute("action", "/products/" + productDTO.getId() + "/edit");
         req.setAttribute("isRO", "false");
         req.setAttribute("isCreated", "false");
 

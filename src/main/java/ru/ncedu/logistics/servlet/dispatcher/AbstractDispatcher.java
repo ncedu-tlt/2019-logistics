@@ -1,5 +1,7 @@
 package ru.ncedu.logistics.servlet.dispatcher;
 
+import org.apache.jasper.tagplugins.jstl.core.Url;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +30,16 @@ public abstract class AbstractDispatcher extends HttpServlet {
 
     public void dispatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String url = req.getRequestURL().toString();
+        String urlFull = url.substring(url.indexOf("http://localhost:8080") + 21);
 
         for(Map.Entry<UrlParser, String> parser: PARSERS.entrySet()) {
+            if(parser.getKey().urlEquals(urlFull)){
+                req.getRequestDispatcher(parser.getValue()).forward(req, resp);
+                return;
+            }
+        }
+
+        for(Map.Entry<UrlParser, String> parser: PARSERS.entrySet()){
             if(parser.getKey().matches(url)) {
                 Map<String, String> attrs = parser.getKey().parse(url);
                 for (Map.Entry<String, String> attr: attrs.entrySet()) {

@@ -25,6 +25,9 @@ public class TownEntity implements Serializable {
     @OneToMany(mappedBy = "rightTown", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RoadEntity> rightRoads;
 
+    @OneToMany(mappedBy = "town", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OfficeEntity> officeEntitySet;
+
     public Integer getId() {
         return id;
     }

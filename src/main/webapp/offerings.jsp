@@ -15,7 +15,7 @@
     <a href="/">Back to homepage</a>
     <h2>Search offering</h2>
 
-    <form method="POST" action="/SearchOfferingsServlet">
+    <form method="POST" action="/offerings/search">
         <select id="productSelect" name="productId">
             <option selected disabled>Select product</option>
             <c:forEach items="${products}" var="product">
@@ -47,7 +47,7 @@
         <select class="jsOfficeSelect" id="officeSelect" name="officeId" style="display: none; margin-left: 30px">
         </select><br><br>
 
-        <input type="submit" value="Search"><br><br>
+        <input class="jsSearch" type="submit" value="Search"><br><br>
 
         <c:if test="${isGet.equals('true')}">
             <c:choose>
@@ -75,7 +75,7 @@
                     </table>
                 </c:when>
                 <c:otherwise>
-                    <p>There are no offerings</p>
+                    <p>No offerings found</p>
                 </c:otherwise>
             </c:choose>
         </c:if>
