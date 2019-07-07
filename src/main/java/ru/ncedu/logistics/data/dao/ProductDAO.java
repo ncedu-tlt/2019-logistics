@@ -1,6 +1,6 @@
 package ru.ncedu.logistics.data.dao;
 
-import ru.ncedu.logistics.data.entity.TownEntity;
+import ru.ncedu.logistics.data.entity.ProductEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,21 +9,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Stateless
-public class TownDAO extends LogisticsDAO<TownEntity, Integer> {
+public class ProductDAO extends LogisticsDAO<ProductEntity, Integer> {
 
-    private static final String FIND_BY_NAME = "FROM " + TownEntity.class.getName() + " town WHERE town.name = :name";
+    private static final String FIND_BY_NAME =
+            "FROM " + ProductEntity.class.getName() + " product WHERE product.name = :name";
 
     private static final String EXIST_BY_NAME =
-            "SELECT COUNT(town) FROM " + TownEntity.class.getName() + " town WHERE town.name = :name";
+            "SELECT COUNT(product) FROM " + ProductEntity.class.getName() + " product WHERE product.name = :name";
 
     private static final String EXIST_BY_ID =
-            "SELECT COUNT(town) FROM " + TownEntity.class.getName() + " town WHERE town.id = :id";
+            "SELECT COUNT(product) FROM " + ProductEntity.class.getName() + " product WHERE product.id = :id";
 
-    public TownDAO() {
-        init(TownEntity.class);
+    public ProductDAO(){
+        init(ProductEntity.class);
     }
 
-    public TownEntity findByName(String name){
+    public ProductEntity findByName(String name){
         Map<String, Object> args = new HashMap<>();
         args.put("name", name);
 
@@ -45,7 +46,7 @@ public class TownDAO extends LogisticsDAO<TownEntity, Integer> {
         return result > 0;
     }
 
-    public boolean existById(int id){
+    public boolean existsById(int id){
         Map<String, Object> args = new HashMap<>();
         args.put("id", id);
 
@@ -59,5 +60,4 @@ public class TownDAO extends LogisticsDAO<TownEntity, Integer> {
 
         return result > 0;
     }
-
 }

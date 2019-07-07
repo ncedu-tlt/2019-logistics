@@ -1,13 +1,8 @@
 package ru.ncedu.logistics.dto;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import ru.ncedu.logistics.service.JsonViews;
+public class ProductDTO {
 
-public class TownDTO {
-
-    @JsonView(JsonViews.Flat.class)
     private Integer id;
-
     private String name;
 
     public Integer getId() {
@@ -25,4 +20,5 @@ public class TownDTO {
     public void setName(String name) {
         this.name = name;
     }
+
 }

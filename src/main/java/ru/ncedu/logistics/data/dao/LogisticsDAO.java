@@ -1,14 +1,14 @@
 package ru.ncedu.logistics.data.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public abstract class LogisticsDAO<T extends Serializable, PK extends Serializable> {
 
-    @PersistenceContext(unitName = "logistics")
-    protected EntityManager entityManager;
+    @PersistenceUnit(unitName = "logistics")
+    protected EntityManagerFactory entityManagerFactory;
 
     private Class<T> cl;
 
@@ -17,23 +17,72 @@ public abstract class LogisticsDAO<T extends Serializable, PK extends Serializab
     }
 
     public T findById(PK id) {
-        return this.entityManager.find(cl, id);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        T result = em.find(cl, id);
+        em.close();
+        return result;
     }
 
     public List<T> findAll() {
-        return this.entityManager.createQuery("FROM " + this.cl.getName() + " obj").getResultList();
+        return customFindListQuery("FROM " + this.cl.getName() + " obj");
+    }
+
+    public List<T> customFindListQuery(String queryText) {
+        return customFindListQuery(queryText, null);
+    }
+
+    public List<T> customFindListQuery(String queryText, Map<String, Object> parameters) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Query query = em.createQuery(queryText);
+        if(parameters != null) {
+            parameters.forEach(query::setParameter);
+        }
+        List<T> result = (List<T>) query.getResultList();
+        em.close();
+        return result;
+    }
+
+    public T customFindSingleQuery(String queryText) {
+        return customFindSingleQuery(queryText, null);
+    }
+
+    public T customFindSingleQuery(String queryText, Map<String, Object> parameters) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Query query = em.createQuery(queryText);
+        if(parameters != null) {
+            parameters.forEach(query::setParameter);
+        }
+        T result = (T) query.getSingleResult();
+        em.close();
+        return result;
     }
 
     public void create(T entity){
-        this.entityManager.persist(entity);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(entity);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public T update(T entity) {
-        return this.entityManager.merge(entity);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        T result = em.merge(entity);
+        em.getTransaction().commit();
+        em.close();
+        return result;
     }
 
     public void delete(T entity) {
-        this.entityManager.remove(entity);
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        if (!em.contains(entity)) {
+            entity = em.merge(entity);
+        }
+        em.remove(entity);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void deleteById(PK entityId) {
