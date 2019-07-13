@@ -1,8 +1,45 @@
-target/
-out/
+*.class
 
-### IntelliJ IDEA ###
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse #
+.settings
+.project
+.classpath
+.studio
+target
+
+# Apple #
+.DS_Store
+
+# Intellij #
 .idea
-*.iws
 *.iml
-*.ipr
+*.log
+
+# VSCode
+.vscode
+
+# logback
+logback.out.xml
+
+api/src/main/resources/public/
+api/target
+ui/dist/
+ui/node/
+ui/node_modules/
+ui/package-lok.json
+ui/npm-debug.log
+ui/target
+ui/test-output
+ui/tests/e2e/reports
+ui/tests/unit/coverage
+ui/yarn-error.log
+ui/yarn.lock
+security/target/
+selenium-debug.log
+
+!.mvn/wrapper/maven-wrapper.jar

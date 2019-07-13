@@ -1,0 +1,20 @@
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: info
+    ru:
+      ncedu:
+        logistics: debug
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/logistics
+  jackson:
+    default-property-inclusion: non_null
+
+api:
+  prefix:
+    v1: /api/v1/logistics
