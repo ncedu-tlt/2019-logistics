@@ -35,7 +35,7 @@
 
         <p></p>
 
-        <input class="jsSearch" type="submit" value="Search">
+        <input class="jsSearchLogic" type="submit" value="Search">
     </form>
 
 </body>

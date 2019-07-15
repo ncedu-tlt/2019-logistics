@@ -13,6 +13,12 @@
         <servlet-name>TownDispatcher</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.dispatcher.TownDispatcher</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TownDispatcher</servlet-name>
+        <url-pattern>/towns/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>GetAllTownsServlet</servlet-name>
         <servlet-class>ru.ncedu.logistics.servlet.town.GetAllTownsServlet</servlet-class>
@@ -146,10 +152,7 @@
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
-    <servlet-mapping>
-        <servlet-name>TownDispatcher</servlet-name>
-        <url-pattern>/towns/*</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>GetAllTownsServlet</servlet-name>
         <url-pattern>/GetAllTownsServlet</url-pattern>

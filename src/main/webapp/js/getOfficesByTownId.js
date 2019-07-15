@@ -29,15 +29,18 @@ var onTownChange = function () {
 
 var onSearchClick = function (event) {
     var officeId = $('.jsOfficeSelect').val()
-
-    if(officeId == null){
-        event.preventDefault()
-        alert("Please select office phone")
+    var townId = $('.jsTownSelect').val()
+    a
+    if(townId != null) {
+        if(officeId == null){
+            event.preventDefault()
+            alert("Please select office phone")
+        }
     }
     
 }
 
 function main(){
     $('.jsTownSelect').on('change', onTownChange)
-    $('.jsSearch').on('click', onSearchClick)
+    $('.jsSearchOffering').on('click', onSearchClick)
 }
