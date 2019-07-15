@@ -9,5 +9,5 @@ var onSearchClick = function (event) {
 }
 
 function main() {
-    $('.jsSearch').on('click', onSearchClick)
+    $('.jsSearchLogic').on('click', onSearchClick)
 }
