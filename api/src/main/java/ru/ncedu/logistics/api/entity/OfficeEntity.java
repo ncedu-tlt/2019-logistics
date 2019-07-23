@@ -3,9 +3,10 @@ package ru.ncedu.logistics.api.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.ncedu.logistics.api.dto.TownDTO;
+import ru.ncedu.logistics.api.dto.OfficeDTO;
 import ru.ncedu.logistics.api.validation.PatternObjectId;
 
 import javax.validation.Valid;
@@ -15,44 +16,53 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Document("towns")
-public class TownEntity {
+@CompoundIndex(def = "{'name':1, 'phone':1, 'townId':1}")
+@Document("offices")
+public class OfficeEntity {
     @Id
     private String id;
 
     @NotBlank
-    @Indexed
     private String name;
 
+    @NotBlank
+    private String phone;
+
     @Valid
-    private Set<Road> roads;
+    private Set<Offering> offerings;
+
+    @NotBlank
+    @PatternObjectId
+    private String townId;
 
     @Data
     @NoArgsConstructor
-    public static class Road {
+    public static class Offering{
         @NotBlank
-        @PatternObjectId
-        private String townId;
+        @Indexed
+        private String productName;
 
-        private double distance;
+        private double price;
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Road road = (Road) o;
-            return townId.equals(road.townId);
+            Offering offering = (Offering) o;
+            return productName.equals(offering.productName);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(townId);
+            return Objects.hash(productName);
         }
     }
 
-    public TownEntity(TownDTO source) {
+    public OfficeEntity(OfficeDTO source){
         this.id = source.getId();
         this.name = source.getName();
-        this.roads = source.getRoads();
+        this.phone = source.getPhone();
+        this.offerings = source.getOfferings();
+        this.townId = source.getTownId();
     }
 }

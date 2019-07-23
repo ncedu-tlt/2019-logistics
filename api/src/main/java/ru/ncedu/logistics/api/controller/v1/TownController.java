@@ -50,10 +50,10 @@ public class TownController {
     @GetMapping
     @ApiOperation("Find towns")
     public List<TownDTO> find(@ApiParam("Name") @RequestParam(value = "name*", required = false) String nameRegex,
-                                      @ApiParam("Fields") @RequestParam(value = "fields", required = false) List<String> fields,
-                                      @ApiParam("Sort") @RequestParam(value = "sort", required = false) List<String> sorting,
-                                      @ApiParam("Range") @RequestHeader(value = "Range", required = false) String ranging,
-                                      HttpServletResponse response) {
+                              @ApiParam("Fields") @RequestParam(value = "fields", required = false) List<String> fields,
+                              @ApiParam("Sort") @RequestParam(value = "sort", required = false) List<String> sorting,
+                              @ApiParam("Range") @RequestHeader(value = "Range", required = false) String ranging,
+                              HttpServletResponse response) {
         Pageable pageable = PageUtils.parse(ranging, sorting);
         PageUtils.setContentRange(response, pageable, townService.count(nameRegex));
         return townService.find(nameRegex, pageable, fields);

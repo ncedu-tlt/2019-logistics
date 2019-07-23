@@ -6,7 +6,7 @@ import ru.ncedu.logistics.api.entity.TownEntity;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class TownDTO {
     private String name;
 
     @Valid
-    private List<TownEntity.Road> roads;
+    private Set<TownEntity.Road> roads;
 
     public TownDTO(TownEntity source) {
         this.id = source.getId();
