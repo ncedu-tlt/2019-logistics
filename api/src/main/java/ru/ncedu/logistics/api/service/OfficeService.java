@@ -15,6 +15,7 @@ public interface OfficeService {
     List<OfficeDTO> find(String nameRegex, Pageable pageable, List<String> fields);
 
     long count(String nameRegex);
+    long countOfficesInTown(String name);
 
     OfficeDTO addOffering(String id, OfficeEntity.Offering offering);
     OfficeDTO updateOffering(String officeId, OfficeEntity.Offering offering);

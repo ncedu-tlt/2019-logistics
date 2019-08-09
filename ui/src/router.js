@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Towns from '@/components/Towns'
+import Header from '@/components/Header'
 
 Vue.use(Router);
 

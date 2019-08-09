@@ -1,10 +1,12 @@
 package ru.ncedu.logistics.api.controller.v1;
 
+import com.mongodb.operation.AggregateOperation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.web.bind.annotation.*;
 import ru.ncedu.logistics.api.dto.OfficeDTO;
 import ru.ncedu.logistics.api.entity.OfficeEntity;
@@ -16,10 +18,11 @@ import ru.ncedu.logistics.api.util.PageUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.prefix.v1}/offices")
+@RequestMapping("${api.prefix.v1}/office")
 @Api(tags = "OfficeController")
 @RequiredArgsConstructor
 public class OfficeController {
@@ -52,27 +55,6 @@ public class OfficeController {
         officeService.delete(id);
     }
 
-    @PostMapping("/{officeId}/addOffering")
-    @ApiOperation("Add offering")
-    public OfficeDTO addOffering(@PathVariable("officeId") String officeId,
-                                @Valid @RequestBody OfficeEntity.Offering offering) throws OfferingExistsException {
-        return officeService.addOffering(officeId, offering);
-    }
-
-    @PostMapping("/{officeId}/updateOffering")
-    @ApiOperation("Update offering")
-    public OfficeDTO updateOffering(@PathVariable("officeId") String officeId,
-                                 @Valid @RequestBody OfficeEntity.Offering offering) throws OfferingNotFoundException {
-        return officeService.updateOffering(officeId, offering);
-    }
-
-    @PostMapping("/{officeId}/removeOffering")
-    @ApiOperation("Remove offering")
-    public OfficeDTO removeOffering(@PathVariable("officeId") String officeId,
-                                    @Valid @RequestBody OfficeEntity.Offering offering){
-        return officeService.removeOffering(officeId, offering);
-    }
-
     @GetMapping
     @ApiOperation("Find offices")
     public List<OfficeDTO> find(@ApiParam("Name") @RequestParam(value = "name*", required = false) String nameRegex,
@@ -85,5 +67,9 @@ public class OfficeController {
         return officeService.find(nameRegex, pageable, fields);
     }
 
-
+    @GetMapping("/count/{name}")
+    @ApiOperation("Count amount of offices")
+    public long count(@PathVariable("name") String name){
+        return officeService.countOfficesInTown(name);
+    }
 }

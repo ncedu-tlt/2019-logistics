@@ -1,8 +1,12 @@
 package ru.ncedu.logistics.api.service.impl;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -17,8 +21,11 @@ import ru.ncedu.logistics.api.repository.OfficeRepository;
 import ru.ncedu.logistics.api.service.OfficeService;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.lookup;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +33,10 @@ public class OfficeServiceImpl implements OfficeService {
 
     private final OfficeRepository officeRepository;
     private final MongoTemplate mongoTemplate;
+
+    private static class Count {
+        private long total;
+    }
 
     @Override
     public OfficeDTO create(OfficeDTO office) {
@@ -69,17 +80,28 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
+    public long countOfficesInTown(String name) {
+        Aggregation agg = Aggregation.newAggregation(
+                lookup("towns", "townId", "_id", "foundTown"),
+                match(Criteria.where("foundTown.name").is(name)),
+                Aggregation.count().as("total")
+        );
+        List<Count> result = mongoTemplate.aggregate(agg, "offices", Count.class).getMappedResults();
+        if (!CollectionUtils.isEmpty(result)){
+            return result.get(0).total;
+        }
+        return 0;
+    }
+
+    @Override
     public OfficeDTO getById(String id) {
         return officeRepository.findById(id).map(OfficeDTO::new).orElseThrow(() -> new OfficeNotFoundException(id));
     }
 
     public boolean offeringExists(String officeId, OfficeEntity.Offering offering){
-        for(OfficeEntity.Offering offer : getById(officeId).getOfferings()){
-            if(offer.equals(offering)){
-                return true;
-            }
-        }
-        return false;
+        return Optional.ofNullable(getById(officeId).getOfferings()).
+                map(offerings -> offerings.contains(offering)).
+                orElse(false);
     }
 
     @Override

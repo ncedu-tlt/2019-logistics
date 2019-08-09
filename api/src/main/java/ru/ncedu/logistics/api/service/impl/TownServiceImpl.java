@@ -10,11 +10,14 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import ru.ncedu.logistics.api.dto.TownDTO;
 import ru.ncedu.logistics.api.entity.TownEntity;
+import ru.ncedu.logistics.api.exception.RoadExistsException;
+import ru.ncedu.logistics.api.exception.RoadNotFoundException;
 import ru.ncedu.logistics.api.exception.TownNotFoundException;
 import ru.ncedu.logistics.api.repository.TownRepository;
 import ru.ncedu.logistics.api.service.TownService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,12 +65,62 @@ public class TownServiceImpl implements TownService {
     }
 
     @Override
+    public TownDTO getById(String id) throws TownNotFoundException {
+        return townRepository.findById(id).map(TownDTO::new).orElseThrow(() -> new TownNotFoundException(id));
+    }
+
+    @Override
+    public TownDTO getByName(String name) throws TownNotFoundException {
+        Query query = buildQuery(name);
+        return new TownDTO();
+    }
+
+    public boolean roadExists(String townId, TownEntity.Road road){
+        return Optional.ofNullable(getById(townId).getRoads()).
+                map(roads -> roads.contains(road)).
+                orElse(false);
+    }
+
+    @Override
     public long count(String nameRegex) {
         return mongoTemplate.count(buildQuery(nameRegex), TownEntity.class);
     }
 
     @Override
-    public TownDTO getById(String id) throws TownNotFoundException {
-        return townRepository.findById(id).map(TownDTO::new).orElseThrow(() -> new TownNotFoundException(id));
+    public TownDTO addRoad(String townId, TownEntity.Road road) throws RoadExistsException {
+        if(roadExists(townId, road)){
+            throw new RoadExistsException(townId);
+        }
+        TownDTO town = getById(townId);
+        town.getRoads().add(road);
+        return update(townId, town);
     }
+
+    @Override
+    public TownDTO updateRoad(String townId, TownEntity.Road road) throws RoadNotFoundException {
+        if(!roadExists(townId, road)){
+            throw new RoadNotFoundException(townId);
+        }
+
+        TownDTO town = getById(townId);
+        for (TownEntity.Road obj : town.getRoads()){
+            if(obj.equals(road)){
+                obj.setDistance(road.getDistance());
+                break;
+            }
+        }
+
+        return update(townId, town);
+    }
+
+    @Override
+    public TownDTO removeRoad(String townId, TownEntity.Road road) {
+        TownDTO town = getById(townId);
+        if(roadExists(townId, road)){
+            town.getRoads().remove(road);
+        }
+        return update(townId, town);
+    }
+
+
 }
